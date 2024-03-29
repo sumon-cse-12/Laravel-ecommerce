@@ -32,7 +32,7 @@
         <!-- Template Stylesheet -->
 
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}" />
-          <script src="{{ asset('frontend/js/lazyload.17.6.0.min.js') }}"></script>
+          {{-- <script src="{{ asset('frontend/js/lazyload.17.6.0.min.js') }}"></script> --}}
           @yield('extra-css')
     </head>
 
@@ -158,10 +158,10 @@
                         </a>
                     </div>
                     <div class="col-lg-6">
-                        <div class="position-relative mx-auto">
+                        {{-- <div class="position-relative mx-auto">
                             <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number" placeholder="Your Email">
                             <button type="submit" class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white" style="top: 0; right: 0;">Subscribe Now</button>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-lg-3">
                         <div class="d-flex justify-content-end pt-3">

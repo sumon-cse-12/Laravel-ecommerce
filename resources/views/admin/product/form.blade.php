@@ -124,12 +124,7 @@
             @php
                   $variation = json_decode($variation->variant_image, true);
             @endphp
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="variation_type">Variant Image:</label>
-                    <input type="file"  class="form-control" id="variation_image" name="variant_image_name[]" >
-                </div>
-            </div>
+        
             <div class="col-md-12">
                 <button type="button" data-id="{{$v_counter}}" class="btn btn-info btn-sm float-right remove-variation-button" id="remove-variation-btn">X</button>
            </div>
@@ -167,12 +162,7 @@
                     <input type="text"  class="form-control" id="variation_type" name="type[]" required>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="variation_type">Variant Image:</label>
-                    <input type="file"  class="form-control" id="variation_image" name="variant_image_name[]" required>
-                </div>
-            </div>
+           
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -232,9 +222,10 @@
                 <button type="button" class="btn btn-primary btn-sm add-more-product-img-btn">Add More Image</button>
             </div>
         </div>
+        
+        @endif
         <div id="more-product-image">
     
         </div>
-        @endif
      </div>							
 </div>

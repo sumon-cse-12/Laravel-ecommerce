@@ -93,12 +93,6 @@
                     <input type="text"  class="form-control" id="variation_type" name="type[]" required>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="variation_type">Variant Image:</label>
-                    <input type="file"  class="form-control" id="variation_image" name="variant_image_name[]" required>
-                </div>
-            </div>
             <div class="col-md-12">
                  <button type="button" class="btn btn-danger btn-sm float-right" data-id="${k}" id="remove-variation">X</button>
             </div>

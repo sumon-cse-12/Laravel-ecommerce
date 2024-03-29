@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('category_id'); 
             $table->unsignedInteger('product_id'); 
-            $table->longText('variant_image');
+            $table->longText('variant_image')->nullable();
             $table->string('weight');
             $table->string('type');
             $table->float('regular_price');

@@ -338,6 +338,7 @@ class ProductController extends Controller
     //     }
     // }
     public function update(Product $product,Request $request) {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'short_description' => 'required',
@@ -378,34 +379,26 @@ class ProductController extends Controller
                 }
                 $product->image = json_encode($all_images);
             }
-    
             $product->save();
-            // dd($request->all());
-            // Update or Create Product Variations
-            $tt = [];
-            foreach ($request->weight as $key => $weight) {
-                $product_variant = ProductVariation::where('product_id', $product->id)
-                    ->where('weight', $request->weight[$key])
-                    ->first();
-                if ($product_variant) {
-                    $product_variant->discount_price = $request->discount_price[$key];
-                    $product_variant->type = $request->type[$key];
-                    $product_variant->category_id = $request->category_id;
-                    $product_variant->regular_price = $request->regular_price[$key];
-                    $product_variant->weight = $request->weight[$key];
-                    // Update Product Variant Images
-                    if ($request->hasFile('variant_image_name')) {
-                        $product_variant_image_name = time() . $key . '_v.' . $request->file('variant_image_name')[$key]->getClientOriginalExtension();
-                        $request->file('variant_image_name')[$key]->move(public_path('/uploads'), $product_variant_image_name);
-                        $product_variant->variant_image = json_encode(['variant_image' => $product_variant_image_name]);
+            if($request->weight){
+                foreach ($request->weight as $key => $weight) {
+                    $product_variant = ProductVariation::where('product_id', $product->id)
+                        ->where('weight', $request->weight[$key])
+                        ->first();
+                    if ($product_variant) {
+                        $product_variant->discount_price = $request->discount_price[$key];
+                        $product_variant->type = $request->type[$key];
+                        $product_variant->category_id = $request->category_id;
+                        $product_variant->regular_price = $request->regular_price[$key];
+                        $product_variant->weight = $request->weight[$key];
+                        $product_variant->save();
+                    } else {
+                        // Handle the case where the product variant doesn't exist
+                        // You might want to create a new product variant in this case
                     }
-            
-                    $product_variant->save();
-                } else {
-                    // Handle the case where the product variant doesn't exist
-                    // You might want to create a new product variant in this case
                 }
             }
+            
         
     
             // Commit the transaction if all operations succeed

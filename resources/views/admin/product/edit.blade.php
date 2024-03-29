@@ -41,6 +41,7 @@
 <script>
      let x = 1;
         $(document).on("click", ".add-more-product-img-btn", function (e) {
+            console.log('pgppgppgpsts serestest');
             x++;
             let html = `<div class="row align-items-center" id="form_column_${x}">
                                        
@@ -57,7 +58,7 @@
                                             </div>`;
             $("#more-product-image").append(html);
         });
-    $(document).on('click', '.remove_product_btn', function (e) {
+    $(document).on('click', '.remove_product_img_btn', function (e) {
     const id = $(this).attr('data-id');
     $('#form_column_' + id).remove();
 });
@@ -92,12 +93,6 @@
                     <input type="text"  class="form-control" id="variation_type" name="type[]" required>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="variation_type">Variant Image:</label>
-                    <input type="file"  class="form-control" id="variation_image" name="variant_image_name[]" required>
-                </div>
-            </div>
             <div class="col-md-12">
                  <button type="button" class="btn btn-danger btn-sm float-right" data-id="${k}" id="remove-variation">X</button>
             </div>
@@ -105,10 +100,7 @@
             $("#edit-variations-container").append(html_element);
         });
         $(document).on('click', '.remove-variation-button', function (e) {
-            console.log('sdfsdf');
             const v_id = $(this).attr('data-id');
-            console.log(v_id);
-
             $('#form_column_' + v_id).remove();
 
         });
