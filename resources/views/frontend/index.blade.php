@@ -93,12 +93,12 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                 </li>
                                 <li class="nav-item">
                                     <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
-                                        <span class="text-dark" style="width: 130px;">Baby's Care</span>
+                                        <span class="text-dark" style="width: 130px;">Babi's Care</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-3">
-                                        <span class="text-dark" style="width: 130px;">Mens Care</span>
+                                        <span class="text-dark" style="width: 130px;">Men's Care</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -119,7 +119,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             <div class="row g-4">
                                 @if(isset($products) && $products)
                                 @foreach ($products as $product)
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="col-md-6 col-6 col-lg-4 col-xl-3">
                                     <div class="custom-product-cart">
                                       <div class="product-card-body">
                                           <div class="product-card-img-sec">
@@ -196,7 +196,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                     <div class="row g-4">
                                         @if(isset($hair_oils) && $hair_oils)
                                         @foreach ($hair_oils as $hair_oil)
-                                        <div class="col-md-6 col-lg-4 col-xl-3">
+                                        <div class="col-md-6 col-6 col-lg-4 col-xl-3">
                                             <div class="custom-product-cart">
                                               <div class="product-card-body">
                                                   <div class="product-card-img-sec">
@@ -274,7 +274,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             <div class="row g-4">
                                 @if(isset($baby_oils) && $baby_oils)
                                 @foreach ($baby_oils as $baby_oil)
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="col-md-6 col-6 col-lg-4 col-xl-3">
                                     <div class="custom-product-cart">
                                       <div class="product-card-body">
                                           <div class="product-card-img-sec">
@@ -350,7 +350,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                 @if(isset($mens_beard_oils) && $mens_beard_oils)
 
                                 @foreach ($mens_beard_oils as $mens_beard_oil)
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="col-md-6 col-6 col-lg-4 col-xl-3">
                                     <div class="custom-product-cart">
                                       <div class="product-card-body">
                                           <div class="product-card-img-sec">
@@ -425,7 +425,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             <div class="row g-4">
                                 @if(isset($facial_serums) && $facial_serums)
                                 @foreach ($facial_serums as $facial_serum)
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="col-md-6 col-6 col-lg-4 col-xl-3">
                                     <div class="custom-product-cart">
                                       <div class="product-card-body">
                                           <div class="product-card-img-sec">
@@ -500,7 +500,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             <div class="row g-4">
                                 @if(isset($body_oils) && $body_oils)
                                 @foreach ($body_oils as $body_oil)
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="col-md-6 col-6 col-lg-4 col-xl-3">
                                     <div class="custom-product-cart">
                                       <div class="product-card-body">
                                           <div class="product-card-img-sec">
@@ -661,7 +661,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                 <div class="col-12 col-lg-12">
                                     <div class="custom-product-cart">
                                       <div class="product-card-body">
-                                          <div class="product-card-img-sec">
+                                          <div class="product-card-img-sec-if-slider ">
                                             @if(isset($product->image) && $product->image)
                                             @php
                                                 $images = json_decode($product->image);

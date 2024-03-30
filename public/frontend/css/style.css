@@ -234,6 +234,7 @@
 }
 
 
+
 /*** Hero Header end ***/
 
 
@@ -750,5 +751,32 @@ a.product-wish-btn {
     }
     .blog-content {
         margin: 15px;
+    }
+}
+.product-card-img-sec-if-slider {
+    background: #F4F4F4;
+    border-radius: 7px 7px 0px 0px;
+    overflow: hidden;
+    height: auto;
+}
+
+@media (max-width: 767.99px) {
+    a.product-add-to-cart-btn {
+        background: transparent;
+        padding: 10px 20px;
+        color: #000;
+        border: 1px solid black;
+    }
+    .product-card-img-sec {
+        height: 245px;
+    }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1400px){
+    a.product-add-to-cart-btn {
+        background: transparent;
+        padding: 10px 42px;
+        color: #000;
+        border: 1px solid black;
     }
 }

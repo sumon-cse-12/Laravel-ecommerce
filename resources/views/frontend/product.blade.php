@@ -305,7 +305,7 @@
                 <div class="owl-carousel related-product-carousel justify-content-center">
                     @if(isset($releted_products) && $releted_products)
                 @foreach ($releted_products as $releted_product)
-                    <div class="p-4 rounded bg-light">
+                    {{-- <div class="p-4 rounded bg-light">
                         <div class="row align-items-center">
                             <div class="col-6">
                                 @if(isset($releted_product->image) && $releted_product->image)
@@ -344,6 +344,75 @@
                                 </div>
                                 <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Add to cart</a>
                             </div>
+                        </div>
+                    </div> --}}
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="custom-product-cart">
+                                <div class="product-card-body">
+                                    <div class="product-card-img-sec-if-slider">
+                                      @if(isset($releted_product->image) && $releted_product->image)
+                                      @php
+                                          $images = json_decode($releted_product->image);
+                                          $singleImage = $images[0];
+                                      @endphp
+                                     <a href="#">
+                                      <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
+                                   </a>
+                                  @endif
+                                    
+                                    </div>
+                                    <div class="product-card-contnent-sec">
+               
+                                              <div class="product-item-name">
+                                                  <a href="#">
+                                                      {{$releted_product->name}}
+                                                  </a>
+                                              </div>
+                  
+                                        <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                            <div class="d-flex align-items-baseline">
+                                                <i class="fas fa-star product-star"></i>
+                                                <i class="fas fa-star product-star"></i>
+                                                <i class="fas fa-star product-star"></i>
+                                                <i class="fas fa-star product-star"></i>
+                                                <i class="fas fa-star product-half-star"></i>
+                                                <i class="product-review-count"><span>(10 reviews)</span></i>
+                                            </div>
+                                            <div class="produc-cart-price-sec">
+                                        
+                                                  @if (isset($releted_product->variations) && $releted_product->variations)
+                                                      @php
+                                                          $v_price = 0;
+                                                      @endphp
+                                                     @foreach ($releted_product->variations as $key => $variation)
+                                                     @php
+                                                         if($key==0){
+                                                          $v_price = $variation->discount_price;
+                                                         }
+                                                     @endphp
+                                                     @endforeach
+                                                     <p class="fw-bold">৳{{$v_price}}</p>
+                                                  {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                  @endif
+                                     
+                                               
+                                            </div>
+                                        </div>
+              
+                                        <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                            <div class="product-add-to-cart-button">
+                                                <a href="{{route('front.product',[$releted_product->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
+                                            </div>
+                                            <div class="product-wish-button">
+                                                <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                </div>
+                              </div>
                         </div>
                     </div>
                     @endforeach
