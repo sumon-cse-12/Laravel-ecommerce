@@ -128,7 +128,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                 $images = json_decode($product->image);
                                                 $singleImage = $images[0];
                                             @endphp
-                                           <a href="#">
+                                           <a href="{{route('front.product',[$product->slug])}}">
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
@@ -137,7 +137,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                           <div class="product-card-contnent-sec">
                      
                                                     <div class="product-item-name">
-                                                        <a href="#">
+                                                        <a href="{{route('front.product',[$product->slug])}}">
                                                             {{$product->name}}
                                                         </a>
                                                     </div>
@@ -205,7 +205,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                         $images = json_decode($hair_oil->image);
                                                         $singleImage = $images[0];
                                                     @endphp
-                                                   <a href="#">
+                                                   <a href="{{route('front.product',[$hair_oil->slug])}}">
                                                     <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                                  </a>
                                                 @endif
@@ -283,7 +283,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                 $images = json_decode($baby_oil->image);
                                                 $singleImage = $images[0];
                                             @endphp
-                                           <a href="#">
+                                           <a href="{{route('front.product',[$baby_oil->slug])}}">
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
@@ -292,7 +292,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                           <div class="product-card-contnent-sec">
                                 
                                                     <div class="product-item-name">
-                                                        <a href="#">
+                                                        <a href="{{route('front.product',[$baby_oil->slug])}}">
                                                             {{$baby_oil->name}}
                                                         </a>
                                                     </div>
@@ -359,7 +359,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                 $images = json_decode($mens_beard_oil->image);
                                                 $singleImage = $images[0];
                                             @endphp
-                                           <a href="#">
+                                           <a href="{{route('front.product',[$mens_beard_oil->slug])}}">
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
@@ -368,7 +368,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                           <div class="product-card-contnent-sec">
                                 
                                                     <div class="product-item-name">
-                                                        <a href="#">
+                                                        <a href="{{route('front.product',[$mens_beard_oil->slug])}}">
                                                             {{$mens_beard_oil->name}}
                                                         </a>
                                                     </div>
@@ -434,7 +434,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                 $images = json_decode($facial_serum->image);
                                                 $singleImage = $images[0];
                                             @endphp
-                                           <a href="#">
+                                           <a href="{{route('front.product',[$facial_serum->slug])}}">
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
@@ -443,7 +443,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                           <div class="product-card-contnent-sec">
                                 
                                                     <div class="product-item-name">
-                                                        <a href="#">
+                                                        <a href="{{route('front.product',[$facial_serum->slug])}}">
                                                             {{$facial_serum->name}}
                                                         </a>
                                                     </div>
@@ -509,7 +509,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                 $images = json_decode($body_oil->image);
                                                 $singleImage = $images[0];
                                             @endphp
-                                           <a href="#">
+                                           <a href="{{route('front.product',[$body_oil->slug])}}">
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
@@ -518,7 +518,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                           <div class="product-card-contnent-sec">
                                 
                                                     <div class="product-item-name">
-                                                        <a href="#">
+                                                        <a href="{{route('front.product',[$body_oil->slug])}}">
                                                             {{$body_oil->name}}
                                                         </a>
                                                     </div>
@@ -582,7 +582,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                    
                     <div class="col-lg-6">
                         <div class="position-relative">
-                            <img src="{{asset('images/Facial Oil.jpg')}}" class="img-fluid w-100 rounded" alt="">
+                            <img src="{{asset('img/facial-serum.png')}}" class="img-fluid w-100 rounded" alt="">
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -667,7 +667,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                 $images = json_decode($product->image);
                                                 $singleImage = $images[0];
                                             @endphp
-                                           <a href="#">
+                                           <a href="{{route('front.product',[$product->slug])}}">
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
@@ -676,7 +676,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                           <div class="product-card-contnent-sec">
                      
                                                     <div class="product-item-name">
-                                                        <a href="#">
+                                                        <a href="{{route('front.product',[$product->slug])}}">
                                                             {{$product->name}}
                                                         </a>
                                                     </div>
