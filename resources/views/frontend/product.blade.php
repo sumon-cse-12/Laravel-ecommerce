@@ -1,4 +1,13 @@
 @extends('frontend.layouts.app')
+@section('extra-css')
+<style>
+    .alart-product-weight{
+        color: red;
+        font-size: 14px;
+        font-weight: 600;
+    }
+</style>
+@endsection
 @section('main-content')
     <!-- Single Product Start -->
     <div class="container-fluid py-5 mt-5">
@@ -37,9 +46,10 @@
                                         $v_price = $variation->discount_price;
                                        }
                                    @endphp
-                                   <button type="button" data-v-discount-price={{$variation->discount_price}} id="product-v-weight_{{$key}}" class="product-weight-btn">{{$variation->weight}}</button>
+                                   <button type="button" data-v-discount-price={{$variation->discount_price}} id="product-v-weight_{{$key}}" class="product-weight-btn pdct-w-b">{{$variation->weight}}</button>
                                    @endforeach
                                 </div>
+                                <div class="alart-product-weight" id="alart-product-weight"></div>
                                 <h5 class="fw-bold mb-3 mt-3" id="product-v-price">৳{{$v_price}}</h5>
                                 @endif
                                 
@@ -425,35 +435,46 @@
     <!-- Single Product End -->
 @endsection
 @section('extra-js')
-    <script>
+<script>
     $(document).ready(function() {
-        // Add click event listener to product weight buttons
-        $(".product-weight-btn").click(function() {
-    $(".product-weight-btn").removeClass("active");
-    
-    // Add active class to the clicked button
-    $(this).addClass("active");
-    
-    // Get the discount price and weight from the button's data attributes
-    var discountPrice = $(this).data("v-discount-price");
-    var weight = $(this).text().trim();
-    // Update the product price
-    $("#product-v-price").text('৳' + discountPrice);
-    
-    // Set data attributes on the "Add to Cart" button
-    $("#add-to-cart-btn").attr("data-weight", weight);
-    $("#add-to-cart-btn").attr("data-price", discountPrice);
-});
 
-            $("#add-to-cart-btn").click(function() {
-            // Retrieve weight and price from data attributes
-            var weight = $(this).attr("data-weight");
+        // $(".product-weight-btn").trigger("click");
+
+        $(".product-weight-btn").click(function() {
+            $('.alart-product-weight').addClass('d-none');
+            // Remove 'active' class from all weight buttons
+            $(".product-weight-btn").removeClass("active");
             
-            var price = $(this).attr("data-price");
-            const id = $("#single-p-id").val()
-            addToCart(id,weight,price)
-    
+            // Add 'active' class to the clicked button
+            $(this).addClass("active");
+            
+            // Get the discount price and weight from the button's data attributes
+            var discountPrice = $(this).data("v-discount-price");
+            var weight = $(this).text().trim();
+            
+            // Update the product price display
+            $("#product-v-price").text('৳' + discountPrice);
+            
+            // Set data attributes on the "Add to Cart" button
+            $("#add-to-cart-btn").data("weight", weight).data("price", discountPrice);
+        });
+
+        // Add click event listener to "Add to Cart" button
+        $("#add-to-cart-btn").click(function() {
+            // Retrieve weight and price from data attributes
+            var weight = $(this).data("weight");
+            var price = $(this).data("price");
+            const id = $("#single-p-id").val();
+            if(weight && price){
+                $('.alart-product-weight').addClass('d-none');
+                addToCart(id, weight, price); 
+            }else{
+                $('.alart-product-weight').html('Please select product weight')
+            }
+
+            
         });
     });
-    </script>
+</script>
+
 @endsection

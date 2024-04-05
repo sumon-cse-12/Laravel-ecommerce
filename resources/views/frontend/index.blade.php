@@ -1,12 +1,6 @@
 @extends('frontend.layouts.app')
 @section('extra-css')
 <style>
-    .hero-header {
-    background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url('{{asset('img/video-banner-img-two.png')}}') !important;
-    background-position: center center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-}
 .news-latter-image-container{
     background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url('{{asset('img/newsletter-bg.jpeg')}}') !important;
     background-position: center center !important;
@@ -29,7 +23,36 @@
 $app_section = get_settings('app_section') ? json_decode(get_settings('app_section')) : '';
 @endphp
         <!-- Hero Start -->
-        <div class="container-fluid py-5 mb-5 hero-header">
+        <section class="py-5 mb-5 hero-header">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="{{asset('img/hair-oil-banner.jpg')}}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="{{asset('img/Facial Seruum.jpg')}}" class="d-block w-100" alt="...">
+                  </div>
+                  {{-- <div class="carousel-item">
+                    <img src="{{asset('uploads/16977750740.32JPG')}}" class="d-block w-100" alt="...">
+                  </div> --}}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </section>
+        {{-- <div class="container-fluid ">
+            
             <div class="container py-5">
                 <div class="row g-5 align-items-center">
                     <div class="col-md-12 col-lg-7">                       
@@ -65,13 +88,43 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Hero End -->
 
 
 
 
         <!-- Fruits Shop Start-->
+        {{-- <div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img src="{{asset('img/hair-oil-banner.jpg')}}" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="{{asset('img/Facial Seruum.jpg')}}" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="{{asset('uploads/16977750740.32JPG')}}" class="d-block w-100" alt="...">
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+        </div>
+    </div> --}}
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
                 <div class="tab-class text-center">
@@ -82,32 +135,32 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                         <div class="col-lg-12 text-end">
                             <ul class="nav nav-pills d-inline-flex text-center mb-5">
                                 <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-all-products">
+                                    <a class="d-flex custom-nav-tab-btn bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-all-products">
                                         <span class="text-dark" style="width: 130px;">All Products</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-1">
+                                    <a class="d-flex custom-nav-tab-btn bg-light rounded-pill" data-bs-toggle="pill" href="#tab-1">
                                         <span class="text-dark" style="width: 130px;">Hair Care</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
+                                    <a class="d-flex custom-nav-tab-btn  bg-light rounded-pill" data-bs-toggle="pill" href="#tab-2">
                                         <span class="text-dark" style="width: 130px;">Babi's Care</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-3">
+                                    <a class="d-flex custom-nav-tab-btn  bg-light rounded-pill" data-bs-toggle="pill" href="#tab-3">
                                         <span class="text-dark" style="width: 130px;">Men's Care</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-4">
+                                    <a class="d-flex custom-nav-tab-btn  bg-light rounded-pill" data-bs-toggle="pill" href="#tab-4">
                                         <span class="text-dark" style="width: 130px;">Face Care</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill" href="#tab-5">
+                                    <a class="d-flex custom-nav-tab-btn  bg-light rounded-pill" data-bs-toggle="pill" href="#tab-5">
                                         <span class="text-dark" style="width: 130px;">Body Care</span>
                                     </a>
                                 </li>
@@ -576,7 +629,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
             </div>
         </div>
         <!-- Fruits Shop End-->
-        <div class="container-fluid banner bg-green my-5">
+        {{-- <div class="container-fluid banner bg-green my-5">
             <div class="container py-5">
                 <div class="row g-4 align-items-center">
                    
@@ -595,10 +648,10 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Featurs Start -->
-        <div class="container-fluid service py-5 d-none">
+        {{-- <div class="container-fluid service py-5 d-none">
             <div class="container py-5">
                 <div class="row g-4 justify-content-center">
                     <div class="col-md-6 col-lg-4">
@@ -642,7 +695,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Featurs End -->
 
 
@@ -738,7 +791,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
 
 
         <!-- Banner Section Start-->
-        <div class="container-fluid banner bg-green my-5">
+        {{-- <div class="container-fluid banner bg-green my-5">
             <div class="container py-5">
                 <div class="row g-4 align-items-center">
                     <div class="col-lg-6">
@@ -763,7 +816,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Banner Section End -->
 
 
@@ -773,7 +826,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
 
 
         <!-- Fact Start -->
-        <div class="container-fluid py-5">
+        {{-- <div class="container-fluid py-5">
             <div class="container">
                 <div class="bg-light p-5 rounded">
                     <div class="row g-4 justify-content-center">
@@ -808,7 +861,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <!-- Fact Start -->
 
 
@@ -817,79 +870,112 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
             <div class="container py-5">
                 <div class="testimonial-header text-center">
                     <h4 class="text-primary">Our Testimonial</h4>
-                    <h1 class="display-5 mb-5 text-dark">Our Customer Saying!</h1>
+                    <h1 class="display-5 mb-5 text-dark">What our customers have to say</h1>
                 </div>
                 <div class="owl-carousel testimonial-carousel">
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                </p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="img/testimonial-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                    <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
+                        <div class="customer-review-sec-content">
+                            <div class="position-relative text-center">
+                             
+                                <div class="mb-4 pb-4 border-bottom border-secondary">
+                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                    </p>
+                                    <i class="fa fa-quote-right" aria-hidden="true"></i>
                                 </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Customer Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star"></i>
+                                 
+                               
+                                <div class="review-sec-footer">
+                                    test
+                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                        <div class="">
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-half-star"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                </p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="img/testimonial-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                    <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
+                        <div class="customer-review-sec-content">
+                            <div class="position-relative text-center">
+                             
+                                <div class="mb-4 pb-4 border-bottom border-secondary">
+                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                    </p>
+                                    <i class="fa fa-quote-right" aria-hidden="true"></i>
                                 </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Customer Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
+                                 
+                               
+                                <div class="review-sec-footer">
+                                    test
+                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                        <div class="">
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-half-star"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="testimonial-item img-border-radius bg-light rounded p-4">
-                        <div class="position-relative">
-                            <i class="fa fa-quote-right fa-2x text-secondary position-absolute" style="bottom: 30px; right: 0;"></i>
-                            <div class="mb-4 pb-4 border-bottom border-secondary">
-                                <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                </p>
-                            </div>
-                            <div class="d-flex align-items-center flex-nowrap">
-                                <div class="bg-secondary rounded">
-                                    <img src="img/testimonial-1.jpg" class="img-fluid rounded" style="width: 100px; height: 100px;" alt="">
+                    <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
+                        <div class="customer-review-sec-content">
+                            <div class="position-relative text-center">
+                             
+                                <div class="mb-4 pb-4 border-bottom border-secondary">
+                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                    </p>
+                                    <i class="fa fa-quote-right" aria-hidden="true"></i>
                                 </div>
-                                <div class="ms-4 d-block">
-                                    <h4 class="text-dark">Client Name</h4>
-                                    <p class="m-0 pb-3">Profession</p>
-                                    <div class="d-flex pe-5">
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
-                                        <i class="fas fa-star text-primary"></i>
+                                 
+                               
+                                <div class="review-sec-footer">
+                                    test
+                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                        <div class="">
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-half-star"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
+                        <div class="customer-review-sec-content">
+                            <div class="position-relative text-center">
+                             
+                                <div class="mb-4 pb-4 border-bottom border-secondary">
+                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                    </p>
+                                    <i class="fa fa-quote-right" aria-hidden="true"></i>
+                                </div>
+                                 
+                               
+                                <div class="review-sec-footer">
+                                    test
+                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                        <div class="">
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-star"></i>
+                                            <i class="fas fa-star product-half-star"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -944,7 +1030,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
         <div class="container-fluid featurs py-5">
             <div class="container py-5">
                 <div class="row g-4">
-                    <div class="col-6 col-lg-3">
+                    <div class="col-12 col-lg-4">
                         <div class="featured-img-sec text-center">
                             <img src="{{asset('img/Natural Products.svg')}}" class="img-fluid" alt="">
                         </div>
@@ -953,7 +1039,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             <p class="mb-0">Our products are certified 100% natural and approved by BSTI </p>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3">
+                    <div class="col-12 col-lg-4">
                         <div class="featured-img-sec text-center">
                             <img src="{{asset('img/payment.svg')}}" class="img-fluid" alt="">
                         </div>
@@ -962,16 +1048,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             <p class="mb-0">100% Secure payment method</p>
                         </div>
                     </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="featured-img-sec text-center">
-                            <img src="{{asset('img/free.svg')}}" class="img-fluid" alt="">
-                        </div>
-                        <div class="featurs-content text-center">
-                            <h5>Free Shipping</h5>
-                            <p class="mb-0">No Extra Charge for delivery.</p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
+                    <div class="col-12 col-lg-4">
                         <div class="featured-img-sec text-center">
                             <img src="{{asset('img/7days.svg')}}" class="img-fluid" alt="">
                         </div>

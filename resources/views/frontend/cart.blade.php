@@ -123,8 +123,11 @@
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
                             <p class="mb-0 pe-4">৳{{isset($total_price)?$total_price:'0'}}</p>
                         </div>
-                        <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                            type="button">Proceed Checkout</button>
+                        {{-- <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                            type="button">Proceed Checkout</button> --}}
+                            <a class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4" href="{{route('front.checkout.cart')}}">
+                                Proceed Checkout
+                            </a>
                     </div>
                 </div>
             </div>

@@ -623,6 +623,11 @@ a.product-add-to-cart-btn {
     color: #000;
     border: 1px solid black;
 }
+.custom-nav-tab-btn {
+    padding: 10px 15px;
+    margin: 5px 10px;
+    font-size: 20px;
+}
 a.product-wish-btn {
     padding: 10px 10px;
     border: 1px solid black;
@@ -678,8 +683,24 @@ a.product-wish-btn {
     width: 100%;
     height: auto;
 }
-
+.customer-saying-section-wrapper {
+    padding: 24px;
+}
+section.section-9.pt-4 {
+    padding-top: 100px !important;
+}
+.card.payment-form {
+    margin-top: 20px;
+    padding: 15px;
+}
 @media (max-width: 992px) {
+    section.section-9.pt-4 {
+        padding-top: 10px !important;
+    }
+    .sub-title {
+        padding-top: 24px;
+        padding-bottom: 10px;
+    }
     .hero-header,
     .page-header {
         margin-top: 97px !important;
