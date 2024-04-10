@@ -51,3 +51,29 @@ function get_pages($position)
 
     return isset($sortSettings[$position]) ? $sortSettings[$position] : [];
 }
+
+function isSidebarActive($routeName)
+{
+    return request()->routeIs($routeName) ? 'active' : '';
+
+}
+function isSidebarTrue($routeNames)
+{
+    $istrue = false;
+    foreach ($routeNames as $routeName){
+        if (request()->routeIs($routeName)){
+            $istrue = true;
+            break;
+        }
+    }
+    return $istrue;
+
+}
+
+function generateUniqueString() {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+    $shuffledCharacters = str_shuffle($characters);
+    $uniqueString = substr($shuffledCharacters, 0, 10);
+    return $uniqueString;
+}

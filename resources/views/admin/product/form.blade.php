@@ -65,6 +65,12 @@
             <textarea name="meta_keywords" id="" cols="4" rows="4"class="form-control" placeholder="Enter Meta Keywords">{{isset($product)?$product->meta_keywords:(old('meta_keywords'))}}</textarea>
         </div>
     </div>	
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label for="name">Is Enable for Special Offer <span>%</span></label>
+            <input type="text" value="{{isset($product)?$product->offer:(old('offer'))}}" name="offer" id="name" class="form-control" placeholder="Enter product offer ex:20">	
+        </div>
+    </div>
     {{-- <div class="col-md-6">
         <div class="mb-3">
             <label for="email">Regular price</label>

@@ -44,20 +44,6 @@
                             <label for="">Phone Number</label>
                             <input type="number" value="{{isset($app_section->phone_number)?$app_section->phone_number:''}}" name="phone_number" class="form-control">
                         </div>
-                        <h4>Banner Section</h4>
-                        <hr>
-                        <div class="form-group">
-                            <label for="">Banner Image</label>
-                            <input type="file" name="banner_image" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Banner Heading</label>
-                            <input type="text" value="{{isset($app_section->banner_heading)?$app_section->banner_heading:''}}" name="banner_heading" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="">Banner Short Description</label>
-                            <textarea name="banner_short_description" class="form-control" id="" cols="4" rows="4">{{isset($app_section->banner_short_description)?$app_section->banner_short_description:''}}</textarea>
-                        </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>

@@ -10,11 +10,14 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\TemplateController;
+use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerOrdersController;
 
 
 
@@ -53,7 +56,7 @@ Route::get('/shop/{categorySlug?}', [ShopController::class,'index'])->name('fron
 Route::get('/product/{slug}', [ShopController::class,'product'])->name('front.product');
 
 Route::get('/cart-checkout', [CartController::class,'checkout'])->name('front.checkout.cart');
-Route::post('/checkout', [CheckoutController::class,'store'])->name('checkout.store');
+Route::post('/checkout', [CustomerOrdersController::class,'store'])->name('checkout.store');
 Route::get('/welcome', [CheckoutController::class,'welcome_checkout'])->name('welcome.view');
 
 Route::group(['prefix' => 'account'], function () {
@@ -68,6 +71,11 @@ Route::group(['prefix' => 'account'], function () {
     });
     Route::group(['middleware' => 'customer.auth'], function () {
         Route::get('/profile', [AuthController::class,'profile'])->name('front.profile');
+        Route::post('/profile/update', [AuthController::class,'profile_update'])->name('front.profile.update');
+        Route::get('/password/change/form', [AuthController::class,'password_change'])->name('front.password.change');
+        Route::post('/password/change', [AuthController::class,'password_update'])->name('front.password.update');
+        Route::get('/orders', [CustomerOrdersController::class,'customer_orders'])->name('front.customer.order');
+        Route::get('/order/status/{id}', [CustomerOrdersController::class,'order_status'])->name('customer.order.status');
         Route::get('/logout', [AuthController::class,'logout'])->name('front.logout');
     });
 
@@ -96,10 +104,18 @@ Route::group(['middleware' => 'admin.auth'], function () {
     Route::get('/all/blog-category', [BlogCategoryController::class,'getAll'])->name('blog.category.get.all');
     Route::resource('blog-category', BlogCategoryController::class);
 
+    Route::resource('faq', FaqController::class);
+    Route::get('/get-all/faq', [FaqController::class,'getAll'])->name('get.all.faq');
+
+    Route::get('/order/index', [CustomerOrdersController::class,'index'])->name('order.index');
+    Route::post('/order/status', [CustomerOrdersController::class,'status'])->name('order.status');
+    Route::get('/order/delete', [CustomerOrdersController::class,'delete'])->name('order.delete');
+    Route::get('/order/get/all', [CustomerOrdersController::class,'getAll'])->name('orders.get.all');
     Route::get('/settings/index', [SettingsController::class,'index'])->name('settings.index');
     Route::post('/settings/app/store', [SettingsController::class,'app_store'])->name('settings.app.store');
 
-
+    Route::get('/template/index', [TemplateController::class,'index'])->name('template');
+    Route::post('/template/store', [TemplateController::class,'store'])->name('template.store');
     });
 });
 

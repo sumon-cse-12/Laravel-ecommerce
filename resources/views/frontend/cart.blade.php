@@ -30,6 +30,7 @@
                     <tbody>
                         @php
                             $total_price = 0;
+                            $shipping_charge = 100;
                             // dd($cart_products);
                         @endphp
                         @foreach ($cart_products as $key => $cart_product)
@@ -46,7 +47,7 @@
                             </div>
                         </th> --}}
                                 <td>
-                                    <p class="mb-0 mt-4">{{ isset($cart_product['name']) ? $cart_product['name'] : '' }}</p>
+                                    <p class="mb-0 mt-4">{{ isset($cart_product['name']) ? $cart_product['name'] : '' }} ({{$cart_product['weight']}})</p>
                                 </td>
                                 <td>
                                     <p class="mb-0 mt-4">
@@ -56,7 +57,7 @@
                                     <div class="input-group quantity mt-4" style="width: 100px;">
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm  rounded-circle bg-light border sub"
-                                                data-id={{ $cart_product['id'] }}>
+                                                data-id={{ $cart_product['cart_item'] }}  data-product-id={{ $cart_product['id'] }}>
                                                 <i class="fa fa-minus"></i>
                                             </button>
                                             {{-- <button class="btn btn-sm btn-minus rounded-circle bg-light border sub" data-id={{$cart_product['id']}} >
@@ -65,12 +66,12 @@
                                         </div>
                                         <input type="text"
                                             class="form-control form-control-sm text-center border-0 qty-value"
-                                            data-id="{{ $cart_product['id'] }}" id="product_quantity_{{ $cart_product['id'] }}"
+                                            data-id="{{ $cart_product['cart_item'] }}" id="product_quantity_{{ $cart_product['cart_item'] }}"
                                             value="{{ $cart_product['quantity'] }}">
 
                                         <div class="input-group-btn">
                                             <button class="btn btn-sm  rounded-circle bg-light border add"
-                                                data-id={{ $cart_product['id'] }}>
+                                                data-id={{ $cart_product['cart_item'] }} data-product-id={{ $cart_product['id'] }}>
                                                 <i class="fa fa-plus"></i>
                                             </button>
                                             {{-- <button class="btn btn-sm btn-plus rounded-circle bg-light border add"  data-id={{$cart_product['id']}}>
@@ -86,7 +87,7 @@
                                 </td>
                                 <td>
                                     <button class="btn btn-md rounded-circle bg-light border mt-4"
-                                        onclick="showConfirmationModal('{{ $cart_product['id'] }}')">
+                                        onclick="showConfirmationModal('{{ $cart_product['cart_item'] }}')">
                                         <i class="fa fa-times text-danger"></i>
                                     </button>
                                 </td>
@@ -109,19 +110,30 @@
                             <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                             <div class="d-flex justify-content-between mb-4">
                                 <h5 class="mb-0 me-4">Subtotal:</h5>
+                              
                                 <p class="mb-0">৳{{isset($total_price)?$total_price:'0'}}</p>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0 me-4">Shipping</h5>
+                               
                                 <div class="">
+                                    @if ($total_price < 1500)
+                                    <p class="mb-0">৳{{$shipping_charge}}</p>
+                                    @else
                                     <p class="mb-0">৳0.00</p>
+                                    @endif
                                 </div>
                             </div>
+                            <div class="mt-2 me-4">Shipping charge is free if your order above ৳1500</div>
                             {{-- <p class="mb-0 text-end">Shipping to Ukraine.</p> --}}
                         </div>
                         <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
                             <h5 class="mb-0 ps-4 me-4">Total</h5>
+                            @if ($total_price < 1500)
+                            <p class="mb-0 pe-4">৳{{isset($total_price)?$total_price + $shipping_charge:'0'}}</p>
+                            @else
                             <p class="mb-0 pe-4">৳{{isset($total_price)?$total_price:'0'}}</p>
+                            @endif
                         </div>
                         {{-- <button class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
                             type="button">Proceed Checkout</button> --}}

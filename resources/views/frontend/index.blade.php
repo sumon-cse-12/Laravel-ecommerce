@@ -1,15 +1,17 @@
 @extends('frontend.layouts.app')
 @section('extra-css')
+@php $template = json_decode(get_settings('template'));  @endphp
 <style>
-.news-latter-image-container{
-    background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url('{{asset('img/newsletter-bg.jpeg')}}') !important;
-    background-position: center center !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    padding: 98px 0;
-    color: #fff;
-    text-align: center;
-}
+        .news-latter-image-container {
+            background-image: url('{{ isset($template->subscribe_image_sec_file) ? asset("uploads/".$template->subscribe_image_sec_file) : "" }}');
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+            padding: 98px 0;
+            color: #fff;
+            text-align: center;
+        }
+
 /* .hero-header {
     background: linear-gradient(rgba(248, 223, 173, 0.1), rgba(248, 223, 173, 0.1)), url(../img/hero-img.jpg);
     background-position: center center;
@@ -29,17 +31,31 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
                 </div>
                 <div class="carousel-inner">
+                    @if (isset($template->slider_one_image_file_name) && $template->slider_one_image_file_name)
                   <div class="carousel-item active">
-                    <img src="{{asset('img/hair-oil-banner.jpg')}}" class="d-block w-100" alt="...">
-                  </div>
+                    <img src="{{ asset('uploads/' . $template->slider_one_image_file_name) }}" class="d-block w-100" alt="...">
+                </div>
+                @endif
+                @if (isset($template->slider_two_image_file_name) && $template->slider_two_image_file_name)
                   <div class="carousel-item">
-                    <img src="{{asset('img/Facial Seruum.jpg')}}" class="d-block w-100" alt="...">
+                    <img src="{{asset('uploads/'.$template->slider_two_image_file_name)}}" class="d-block w-100" alt="...">
                   </div>
-                  {{-- <div class="carousel-item">
-                    <img src="{{asset('uploads/16977750740.32JPG')}}" class="d-block w-100" alt="...">
-                  </div> --}}
+                  @endif
+                  @if (isset($template->slider_three_image_file_name) && $template->slider_three_image_file_name)
+                  <div class="carousel-item">
+                    <img src="{{asset('uploads/'.$template->slider_three_image_file_name)}}" class="d-block w-100" alt="...">
+                  </div>
+                  @endif
+               
+                  @if (isset($template->slider_four_image_file_name) && $template->slider_four_image_file_name)
+                  <div class="carousel-item">
+                    <img src="{{asset('uploads/'.$template->slider_four_image_file_name)}}" class="d-block w-100" alt="...">
+                  </div>
+                  @endif
+                 
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -51,86 +67,13 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                 </button>
               </div>
         </section>
-        {{-- <div class="container-fluid ">
-            
-            <div class="container py-5">
-                <div class="row g-5 align-items-center">
-                    <div class="col-md-12 col-lg-7">                       
-
-                        <h4 class="mb-3 text-dark"> {{isset($app_section->banner_short_description)?$app_section->banner_short_description:''}}</h4>
-                        <h1 class="mb-5 display-3 text-primary"> {{isset($app_section->banner_heading)?$app_section->banner_heading:''}}</h1>
-                        <div class="position-relative mx-auto">
-                            <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Search">
-                            <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Submit Now</button>
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-5">
-                        <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
-                            <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active rounded">
-                                    <img src="{{asset('images/banner-img-two.png')}}" class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
-                                    <a href="#" class="btn px-4 py-2 text-white rounded">Hair Care</a>
-                                </div>
-                                <div class="carousel-item rounded">
-                                    <img src="{{asset('images/banner-img-one.png')}}" class="img-fluid w-100 h-100 rounded" alt="Second slide">
-                                    <a href="#" class="btn px-4 py-2 text-white rounded">Face-Powder</a>
-                                </div>
-                            </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-        <!-- Hero End -->
-
-
-
-
-        <!-- Fruits Shop Start-->
-        {{-- <div class="container-fluid fruite py-5">
-            <div class="container py-5">
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img src="{{asset('img/hair-oil-banner.jpg')}}" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="{{asset('img/Facial Seruum.jpg')}}" class="d-block w-100" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img src="{{asset('uploads/16977750740.32JPG')}}" class="d-block w-100" alt="...">
-                      </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                  </div>
-        </div>
-    </div> --}}
+       
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
                 <div class="tab-class text-center">
                     <div class="row g-4">
                         <div class="col-lg-4 text-start">
-                            <h1>Our Organic Products</h1>
+                            <h1>{{isset($template->section_one_title)?$template->section_one_title:''}}</h1>
                         </div>
                         <div class="col-lg-12 text-end">
                             <ul class="nav nav-pills d-inline-flex text-center mb-5">
@@ -225,13 +168,9 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                   </div>
                                               </div>
 
-                                              <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                              <div class="product-add-n-wish-btn-sec ">
                                                   <div class="product-add-to-cart-button">
-                                                      <a href="{{route('front.product',[$product->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
-                                                  </div>
-                                                  <div class="product-wish-button">
-                                                      <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                      </a>
+                                                      <a href="{{route('front.product',[$product->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
                                              
@@ -302,14 +241,11 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                           </div>
                                                       </div>
                                         
-                                                      <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                                      <div class="product-add-n-wish-btn-sec">
                                                           <div class="product-add-to-cart-button">
-                                                              <a href="{{route('front.product',[$hair_oil->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
+                                                              <a href="{{route('front.product',[$hair_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                           </div>
-                                                          <div class="product-wish-button">
-                                                              <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                              </a>
-                                                          </div>
+                                                         
                                                       </div>
                                                      
                                                   </div>
@@ -380,13 +316,9 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                   </div>
                                               </div>
                                 
-                                              <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                              <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
-                                                      <a href="{{route('front.product',[$baby_oil->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
-                                                  </div>
-                                                  <div class="product-wish-button">
-                                                      <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                      </a>
+                                                      <a href="{{route('front.product',[$baby_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
                                              
@@ -456,13 +388,9 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                   </div>
                                               </div>
                                 
-                                              <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                              <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
-                                                      <a href="{{route('front.product',[$mens_beard_oil->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
-                                                  </div>
-                                                  <div class="product-wish-button">
-                                                      <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                      </a>
+                                                      <a href="{{route('front.product',[$mens_beard_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
                                              
@@ -531,14 +459,11 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                   </div>
                                               </div>
                                 
-                                              <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                              <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
-                                                      <a href="{{route('front.product',[$facial_serum->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
+                                                      <a href="{{route('front.product',[$facial_serum->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
-                                                  <div class="product-wish-button">
-                                                      <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                      </a>
-                                                  </div>
+                                              
                                               </div>
                                              
                                           </div>
@@ -606,14 +531,11 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                   </div>
                                               </div>
                                 
-                                              <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                              <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
-                                                      <a href="{{route('front.product',[$body_oil->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
+                                                      <a href="{{route('front.product',[$body_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
-                                                  <div class="product-wish-button">
-                                                      <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                      </a>
-                                                  </div>
+                                                  
                                               </div>
                                              
                                           </div>
@@ -703,8 +625,10 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
         <div class="container-fluid vesitable">
             <div class="container py-5">
                 <div class="text-center mx-auto mb-5" style="max-width: 700px;">
-                    <h1 class="display-4">Bestseller Products</h1>
-                    <p>Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
+                    <h1 class="display-4">{{isset($template->section_two_title)?$template->section_two_title:''}}</h1>
+                    <div class="best-selling-short-des">
+                        {{isset($template->section_two_des)?$template->section_two_des:''}}
+                    </div>
                 </div>
     
                 <div class="owl-carousel related-product-carousel justify-content-center">
@@ -764,13 +688,9 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                   </div>
                                               </div>
     
-                                              <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                              <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
-                                                      <a href="{{route('front.product',[$product->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
-                                                  </div>
-                                                  <div class="product-wish-button">
-                                                      <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                      </a>
+                                                      <a href="{{route('front.product',[$product->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
                                              
@@ -996,10 +916,10 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                         <div class="col-12">
                                 <div class="news-latter-content-sec">
                                 <div class="newsletter-title-sec">
-                                       Newsletter
+                                     {{isset($template->subscribe_title)?$template->subscribe_title:''}}
                                 </div>
                                 <div class="newsletter-sub-title">
-                                    Get insider access for limited edition offers, new launches, insights on Ayurvedic skincare, beauty tips and more!
+                                    {{isset($template->subscribe_des)?$template->subscribe_des:''}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-8 m-auto">
@@ -1032,29 +952,35 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                 <div class="row g-4">
                     <div class="col-12 col-lg-4">
                         <div class="featured-img-sec text-center">
-                            <img src="{{asset('img/Natural Products.svg')}}" class="img-fluid" alt="">
+                            @if (isset($template->featured_sec_img_one_file) && $template->featured_sec_img_one_file)
+                            <img src="{{asset('uploads/'.$template->featured_sec_img_one_file)}}" class="img-fluid" alt="">
+                            @endif
                         </div>
                         <div class="featurs-content text-center">
-                            <h5>100% Natural</h5>
-                            <p class="mb-0">Our products are certified 100% natural and approved by BSTI </p>
+                            <h5>{{isset($template->featured_sec_title_one)?$template->featured_sec_title_one:''}}</h5>
+                            <p class="mb-0">{{isset($template->featured_sec_short_des_one)?$template->featured_sec_short_des_one:''}}</p>
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="featured-img-sec text-center">
-                            <img src="{{asset('img/payment.svg')}}" class="img-fluid" alt="">
+                            @if (isset($template->featured_sec_img_two_file) && $template->featured_sec_img_two_file)
+                            <img src="{{asset('uploads/'.$template->featured_sec_img_two_file)}}" class="img-fluid" alt="">
+                            @endif
                         </div>
                         <div class="featurs-content text-center">
-                            <h5>Secure Payment</h5>
-                            <p class="mb-0">100% Secure payment method</p>
+                            <h5>{{isset($template->featured_sec_title_two)?$template->featured_sec_title_two:''}}</h5>
+                            <p class="mb-0">{{isset($template->featured_sec_short_des_two)?$template->featured_sec_short_des_two:''}}</p>
                         </div>
                     </div>
                     <div class="col-12 col-lg-4">
                         <div class="featured-img-sec text-center">
-                            <img src="{{asset('img/7days.svg')}}" class="img-fluid" alt="">
+                            @if (isset($template->featured_sec_img_three_file) && $template->featured_sec_img_three_file)
+                            <img src="{{asset('uploads/'.$template->featured_sec_img_three_file)}}" class="img-fluid" alt="">
+                            @endif
                         </div>
                         <div class="featurs-content text-center">
-                            <h5>7 days return</h5>
-                            <p class="mb-0">7 days return policy and money back</p>
+                            <h5>{{isset($template->featured_sec_title_three)?$template->featured_sec_title_three:''}}</h5>
+                            <p class="mb-0">{{isset($template->featured_sec_short_des_three)?$template->featured_sec_short_des_three:''}}</p>
                         </div>
                     </div>
                 

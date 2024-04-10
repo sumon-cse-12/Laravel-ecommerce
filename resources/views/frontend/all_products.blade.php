@@ -33,7 +33,7 @@
                             $images = json_decode($product->image);
                             $singleImage = $images[0];
                         @endphp
-                       <a href="#">
+                       <a href="{{route('front.product',[$product->slug])}}">
                         <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                      </a>
                     @endif
@@ -42,7 +42,7 @@
                       <div class="product-card-contnent-sec">
  
                                 <div class="product-item-name">
-                                    <a href="#">
+                                    <a href="{{route('front.product',[$product->slug])}}">
                                         {{$product->name}}
                                     </a>
                                 </div>
@@ -77,13 +77,9 @@
                               </div>
                           </div>
 
-                          <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                          <div class="product-add-n-wish-btn-sec">
                               <div class="product-add-to-cart-button">
                                   <a href="{{route('front.product',[$product->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
-                              </div>
-                              <div class="product-wish-button">
-                                  <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                  </a>
                               </div>
                           </div>
                          

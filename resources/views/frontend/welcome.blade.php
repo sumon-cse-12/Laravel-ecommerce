@@ -2,60 +2,38 @@
 
 @section('extra-css')
 <style>
-  .thankyou-wrapper {
-    width: 50%;
+.thankyou-wrapper-sec {
+    width: 100%;
     height: auto;
     margin: auto;
-    background: #ffffff;
-    padding: 10px 0px 50px;
+    padding: 0px 30px 0px 30px;
+    text-align: center;
 }
-    .thankyou-wrapper h1{
-      font:100px Arial, Helvetica, sans-serif;
-      text-align:center;
-      color:#333333;
-      padding:0px 10px 10px;
-    }
-    .thankyou-wrapper p{
-      font:26px Arial, Helvetica, sans-serif;
-      text-align:center;
-      color:#333333;
-      padding:5px 10px 10px;
-    }
-    .thankyou-wrapper a{
-      font:26px Arial, Helvetica, sans-serif;
-      text-align:center;
-      color:#ffffff;
-      display:block;
-      text-decoration:none;
-      width:250px;
-      background:#E47425;
-      margin:10px auto 0px;
-      padding:15px 20px 15px;
-      border-bottom:5px solid #F96700;
-    }
-    .thankyou-wrapper a:hover{
-      font:26px Arial, Helvetica, sans-serif;
-      text-align:center;
-      color:#ffffff;
-      display:block;
-      text-decoration:none;
-      width:250px;
-      background:#F96700;
-      margin:10px auto 0px;
-      padding:15px 20px 15px;
-      border-bottom:5px solid #F96700;
-    }
+.thankyou-wrapper-sec-content {
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+a.back-btn {
+    background: rgb(129 196 8);
+    color: #fff;
+    border-radius: 5px;
+    padding: 8px 14px;
+}
+
     </style>
 @endsection
 @section('main-content')
-<section class="login-main-wrapper">
+@php $template = json_decode(get_settings('template'));  @endphp
+<section class="section-10-login">
     <div class="main-container">
         <div class="login-process">
             <div class="login-main-container">
-                <div class="thankyou-wrapper">
-                    <h1><img src="http://montco.happeningmag.com/wp-content/uploads/2014/11/thankyou.png" class="img-fluid" alt="thanks" /></h1>
-                      <p>for contacting us, we will get in touch with you soon... </p>
-                      <a href="#">Back to home</a>
+                <div class="thankyou-wrapper-sec">
+                  <div class="thankyou-wrapper-sec-content">
+                    {{isset($template->order_success_message)?$template->order_success_message:''}}
+                  </div>
+                      <a href="{{route('front.index')}}" class="back-btn">Back to home</a>
                       <div class="clr"></div>
                   </div>
                   <div class="clr"></div>

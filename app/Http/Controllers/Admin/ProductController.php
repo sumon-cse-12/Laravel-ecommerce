@@ -22,129 +22,7 @@ class ProductController extends Controller
         $data['categories'] = Category::where('status','active')->get();
         return view('admin.product.create',$data);
     }
-    // public function store(Request $request){
-    //     // dd($request->all());
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'short_description' => 'required',
-    //         'description' => 'required',
-    //         'category_id' => 'required',
-    //         'product_image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //         'discount_price' => 'required',
-    //         'weight' => 'required',
-    //         'status' => 'required|in:in_stock,stock_out',
-    //     ]);
 
-    //     $request['slug']=Str::slug($request->name, '-');
-    //     $product = new Product();
-    //     $product->name = $request->name;
-    //     $product->slug = $request['slug'];
-    //     $product->description = $request->description;
-    //     $product->short_description = $request->short_description;
-    //     $product->category_id = $request->category_id;
-    //     $product->status = $request->status;   
-    //     $all_images = [];
-    //     foreach ($request->file('product_image') as $key => $file) {
-    //         $product_image_name = time() . $key . '.' . $file->getClientOriginalExtension();
-    //         $file->move(public_path('/uploads'), $product_image_name);
-    //         $all_images[] = ['image' => $product_image_name];
-    //     }
-    //     $product->image = json_encode($all_images);
-    //     $all_variant_images = [];
-    //     foreach ($request->file('variant_image') as $key => $file) {
-    //         $product_variant_image_name = time() . $key . '.v' . $file->getClientOriginalExtension();
-    //         $file->move(public_path('/uploads'), $product_variant_image_name);
-    //         $all_variant_images[] = ['variant_image' => $product_variant_image_name];
-    //     }
-    //     $product_variant = new ProductVariation();
-    //     $product->variant_image = json_encode($all_variant_images);
-        
-    //     $product_variant->weight = $request->weight;   
-    //     $product_variant->discount_price = $request->discount_price;   
-    //     $product_variant->type = $request->type;   
-    //     $product_variant->regular_price = $request->regular_price;   
-    //     $product->meta_description = $request->meta_description;   
-    //     $product->meta_keywords = $request->meta_keywords;   
-    //     $product->save();
-        
-    //     return back()->with('success', 'Product successfully created');
-    // }
-
-   // Import DB facade
-
-    // public function store(Request $request) {
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'short_description' => 'required',
-    //         'description' => 'required',
-    //         'category_id' => 'required',
-    //         'product_image.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //         'discount_price.*' => 'required',
-    //         'weight.*' => 'required',
-    //         'status' => 'required|in:in_stock,stock_out',
-    //     ]);
-    
-    //     $request['slug'] = Str::slug($request->name, '-');
-        
-    //     // Start a database transaction
-    //     DB::beginTransaction();
-        
-    //     try {
-    //         // Save Product
-    //         $product = new Product();
-    //         $product->name = $request->name;
-    //         $product->slug = $request['slug'];
-    //         $product->description = $request->description;
-    //         $product->short_description = $request->short_description;
-    //         $product->category_id = $request->category_id;
-    //         $product->status = $request->status;
-    //         $product->meta_description = $request->meta_description;
-    //         $product->meta_keywords = $request->meta_keywords;
-    
-    //         // Save Product Images
-    //         $all_images = [];
-    //         foreach ($request->file('product_image') as $key => $file) {
-    //             $product_image_name = time() . $key . '.' . $file->getClientOriginalExtension();
-    //             $file->move(public_path('/uploads'), $product_image_name);
-    //             $all_images[] = ['image' => $product_image_name];
-    //         }
-    //         $product->image = json_encode($all_images);
-            
-    //         $product->save();
-    
-    //         // Save Product Variations
-    //         foreach ($request->weight as $key => $weight) {
-    //             $product_variant = new ProductVariation();
-    //             $product_variant->product_id = $product->id; // Assuming product_id is a foreign key
-    //             $product_variant->weight = $request->weight[$key];
-    //             $product_variant->discount_price = $request->discount_price[$key];
-    //             $product_variant->type = $request->type[$key];
-    //             $product_variant->category_id = $request->category_id;
-    //             $product_variant->regular_price = $request->regular_price[$key];
-              
-    //             // Save Product Variant Images
-    //             $all_variant_images = [];
-    //             foreach ($request->file('variant_image_name') as $file) {
-    //                 $product_variant_image_name = time() . $key . '.v' . $file->getClientOriginalExtension();
-    //                 $file->move(public_path('/uploads'), $product_variant_image_name);
-    //                 $all_variant_images[] = ['variant_image' => $product_variant_image_name];
-    //             }
-    //             $product_variant->variant_image = json_encode($all_variant_images);
-    //             dd( $product_variant);
-    //             $product_variant->save();
-    //         }
-    
-    //         // Commit the transaction if all operations succeed
-    //         DB::commit();
-            
-    //         return back()->with('success', 'Product successfully created');
-    //     } catch (\Exception $e) {
-    //         dd($e);
-    //         // Rollback the transaction if an error occurs
-    //         DB::rollback();
-    //         return back()->with('error', 'Error occurred while creating the product.');
-    //     }
-    // }
     public function store(Request $request) {
         $request->validate([
             'name' => 'required',
@@ -173,6 +51,7 @@ class ProductController extends Controller
             $product->status = $request->status;
             $product->meta_description = $request->meta_description;
             $product->meta_keywords = $request->meta_keywords;
+            $product->offer = $request->offer;
     
             // Save Product Images
             $all_images = [];
@@ -262,81 +141,6 @@ class ProductController extends Controller
         return view('admin.product.edit', $data);
     }
 
-    // public function update(Product $product,Request $request){
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'short_description' => 'required',
-    //         'description' => 'required',
-    //         'category_id' => 'required',
-    //         'discount_price' => 'required',
-    //         'weight' => 'required',
-    //         'status'=>'required|in:in_stock,stock_out'
-    //     ]);
-
-    //     $request['slug'] = Str::slug($request->name, '-');
-        
-    //     // Start a database transaction
-    //     DB::beginTransaction();
-        
-    //     try {
-    //             $product = Product::find($product->id);
-
-    //                         // Update the attributes of the product
-    //             $product->update([
-    //                 'name' => $request->name,
-    //                 'slug' => $request['slug'],
-    //                 'description' => $request->description,
-    //                 'short_description' => $request->short_description,
-    //                 'category_id' => $request->category_id,
-    //                 'status' => $request->status,
-    //                 'meta_description' => $request->meta_description,
-    //                 'meta_keywords' => $request->meta_keywords,
-    //                 ]);
-    
-    //     if ($request->hasFile('product_image')) {
-    //         $productImages = [];
-    //         foreach ($request->file('product_image') as $key => $file) {
-    //             $product_image_name = time() . $key . '.' . $file->getClientOriginalExtension();
-    //             $file->move(public_path('/uploads'), $product_image_name);
-    //             $productImages[] = ['image' => $product_image_name];
-    //         }
-    //         $product->update(['image' => json_encode($productImages)]);
-    //     }
-
-    //     $product_variants = ProductVariation::where('product_id',$product->id)->pluck('product_id');
-    //     foreach ($request->weight as $key => $weight) {
-    //         $product_variant = ProductVariation::find($product_variants);
-    //         dd( $product_variant);
-    //         $product_variant->product_id = $product_variant->product_id; // Assuming product_id is a foreign key
-    //         $product_variant->weight = $request->weight[$key];
-    //         $product_variant->discount_price = $request->discount_price[$key];
-    //         $product_variant->type = $request->type[$key];
-    //         $product_variant->category_id = $request->category_id;
-    //         $product_variant->regular_price = $request->regular_price[$key];
-
-    //         // Save Product Variant Images
-    //         if ($request->hasFile('variant_image_name')) {
-    //             $product_variant_image_name = time() . $key . '_v.' . $request->file('variant_image_name')[$key]->getClientOriginalExtension();
-    //             $request->file('variant_image_name')[$key]->move(public_path('/uploads'), $product_variant_image_name);
-    //             $product_variant->variant_image = json_encode(['variant_image' => $product_variant_image_name]);
-    //         }
-
-    //         // Save the ProductVariation instance
-    //         $product_variant->save();
-    //     }
-
-    
-    //         // Commit the transaction if all operations succeed
-    //         DB::commit();
-            
-    //         return back()->with('success', 'Product successfully updated');
-    //     } catch (\Exception $e) {
-    //         dd($e);
-    //         // Rollback the transaction if an error occurs
-    //         DB::rollback();
-    //         return back()->with('error', 'Error occurred while creating the product.');
-    //     }
-    // }
     public function update(Product $product,Request $request) {
         // dd($request->all());
         $request->validate([
@@ -368,6 +172,7 @@ class ProductController extends Controller
             $product->status = $request->status;
             $product->meta_description = $request->meta_description;
             $product->meta_keywords = $request->meta_keywords;
+            $product->offer = $request->offer;
     
             // Update Product Images
             if ($request->hasFile('product_image')) {
@@ -406,7 +211,6 @@ class ProductController extends Controller
     
             return back()->with('success', 'Product successfully updated');
         } catch (\Exception $e) {
-            dd($e);
             // Rollback the transaction if an error occurs
             DB::rollback();
             return back()->with('error', 'Error occurred while updating the product.');

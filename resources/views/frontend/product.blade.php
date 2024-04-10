@@ -39,15 +39,19 @@
                                 <div class="product-weight-sec">
                                     @php
                                         $v_price = 0;
+                                        // dd($product->variations);
                                     @endphp
-                                   @foreach ($product->variations as $key => $variation)
-                                   @php
-                                       if($key==0){
+                                @foreach ($product->variations as $key => $variation)
+                                @php
+                                    if($key==0){
                                         $v_price = $variation->discount_price;
-                                       }
-                                   @endphp
-                                   <button type="button" data-v-discount-price={{$variation->discount_price}} id="product-v-weight_{{$key}}" class="product-weight-btn pdct-w-b">{{$variation->weight}}</button>
-                                   @endforeach
+                                    }
+                                @endphp
+                                @if ($key == 0 || $variation->weight != $product->variations[$key - 1]->weight)
+                                    <button type="button" data-v-discount-price="{{ $variation->discount_price }}" id="product-v-weight_{{ $key }}" class="product-weight-btn pdct-w-b">{{ $variation->weight }}</button>
+                                @endif
+                            @endforeach
+                            
                                 </div>
                                 <div class="alart-product-weight" id="alart-product-weight"></div>
                                 <h5 class="fw-bold mb-3 mt-3" id="product-v-price">৳{{$v_price}}</h5>
@@ -255,57 +259,7 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <h4 class="mb-4">Featured products</h4>
-                            @if (isset($products) && $products)
-                                @foreach ($products as $product)
-                                    <div class="d-flex align-items-center justify-content-start mt-3">
-                                        @if (isset($product->image) && $product->image)
-                                            @php
-                                                $images = json_decode($product->image);
-                                                $singleImage = $images[0];
-                                            @endphp
-                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                                <img src="{{ asset('uploads/' . $singleImage->image) }}"
-                                                    class="img-fluid rounded" alt="">
-                                            </div>
-                                        @endif
-
-                                        <div>
-                                            <h6 class="mb-2">{{ $product->name }}</h6>
-                                            <div class="d-flex mb-2">
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star text-secondary"></i>
-                                                <i class="fa fa-star"></i>
-                                            </div>
-                                            <div class="d-flex mb-2">
-                                                <h5 class="fw-bold me-2">৳{{ $product->discount_price }}</h5>
-                                                <h5 class="text-danger text-decoration-line-through">
-                                                    ৳{{ $product->regular_price }}</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
-
-
-                            <div class="d-flex justify-content-center my-4">
-                                <a href="#"
-                                    class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew
-                                    More</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="position-relative">
-                                <img src="img/banner-fruits.jpg" class="img-fluid w-100 rounded" alt="">
-                                <div class="position-absolute"
-                                    style="top: 50%; right: 10px; transform: translateY(-50%);">
-                                    <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
-                                </div>
-                            </div>
-                        </div>
+              
                     </div>
                 </div>
             </div>
@@ -315,47 +269,7 @@
                 <div class="owl-carousel related-product-carousel justify-content-center">
                     @if(isset($releted_products) && $releted_products)
                 @foreach ($releted_products as $releted_product)
-                    {{-- <div class="p-4 rounded bg-light">
-                        <div class="row align-items-center">
-                            <div class="col-6">
-                                @if(isset($releted_product->image) && $releted_product->image)
-                                @php
-                                    $images = json_decode($releted_product->image);
-                                    $singleImage = $images[0];
-                                @endphp
-                                <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid custom-rounded-circle w-100" alt="">
-                            @endif
-                            </div>
-                            <div class="col-6">
-                                <a href="#" class="h5">{{$releted_product->name}}</a>
-                                <div class="d-flex my-3">
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star text-primary"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <div class="product-variant-sec-container">
-                                    @if (isset($releted_product->variations) && $releted_product->variations)
-                                    <div class="product-weight-sec">
-                                        @php
-                                            $v_price = 0;
-                                        @endphp
-                                       @foreach ($releted_product->variations as $key => $variation)
-                                       @php
-                                           if($key==0){
-                                            $v_price = $variation->discount_price;
-                                           }
-                                       @endphp
-                                       @endforeach
-                                    </div>
-                                    <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5>
-                                    @endif
-                                </div>
-                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i>Add to cart</a>
-                            </div>
-                        </div>
-                    </div> --}}
+                    
                     <div class="row">
                         <div class="col-12">
                             <div class="custom-product-cart">
@@ -366,7 +280,7 @@
                                           $images = json_decode($releted_product->image);
                                           $singleImage = $images[0];
                                       @endphp
-                                     <a href="#">
+                                     <a href="{{route('front.product',[$releted_product->slug])}}">
                                       <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                    </a>
                                   @endif
@@ -375,7 +289,7 @@
                                     <div class="product-card-contnent-sec">
                
                                               <div class="product-item-name">
-                                                  <a href="#">
+                                                  <a href="{{route('front.product',[$releted_product->slug])}}">
                                                       {{$releted_product->name}}
                                                   </a>
                                               </div>
@@ -410,14 +324,11 @@
                                             </div>
                                         </div>
               
-                                        <div class="product-add-n-wish-btn-sec d-flex justify-content-between">
+                                        <div class="product-add-n-wish-btn-sec">
                                             <div class="product-add-to-cart-button">
                                                 <a href="{{route('front.product',[$releted_product->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
                                             </div>
-                                            <div class="product-wish-button">
-                                                <a href="#" class="product-wish-btn"><i class="fa fa-heart" aria-hidden="true"></i>
-                                                </a>
-                                            </div>
+                                          
                                         </div>
                                        
                                     </div>

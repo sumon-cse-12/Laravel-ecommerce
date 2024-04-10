@@ -22,49 +22,75 @@
         <form action="{{route('checkout.store')}}" method="POST">
             @csrf
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-lg-8 col-12">
                     <div class="sub-title">
                         <h2>Shipping Address</h2>
                     </div>
                     <div class="card shadow-lg border-0">
                         <div class="card-body checkout-form">
                             <div class="row">
+
+                                @if(!$auth)
+                                    <div class="col-md-12 mb-3 d-flex">
+                                    <label for="status">@lang('Order as a registered customer ?')</label>
+                                    <div class="custom-switch">
+                                        <input id="has_registered_customer_checkbox" name="registered_customer" type="checkbox" class="custom-switch-button">
+                                    </div>
+                                    </div>
+                                @endif
+                                        
+                            
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="text" required name="first_name" id="first_name" class="form-control" placeholder="First Name">
+                                    </div>            
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="text" required name="last_name" id="last_name" class="form-control" placeholder="Last Name">
+                                    </div>            
+                                </div>
                                 
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name">
+                                        <input type="text" required name="email" id="email" class="form-control" placeholder="Email">
+                                    </div>            
+                                </div>
+                                <div class="col-md-12 d-none" id="registered-customer-password">
+                                    <div class="mb-3">
+                                        <input type="password" name="password" id="email" class="form-control" placeholder="Password">
                                     </div>            
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">
-                                    </div>            
-                                </div>
-                                
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <input type="text" name="email" id="email" class="form-control" placeholder="Email">
-                                    </div>            
-                                </div>
-    
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <textarea name="address" id="address" cols="3" rows="3" placeholder="Address" class="form-control"></textarea>
-                                    </div>            
-                                </div>
-    
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <input type="text" name="city" id="city" class="form-control" placeholder="City">
+                                        <input type="text" required name="mobile" id="mobile" class="form-control" placeholder="Phone Number">
                                     </div>            
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile No.">
+                                        <input type="text" required name="postal_code" id="mobile" class="form-control" placeholder="Zip/Postal Code">
                                     </div>            
                                 </div>
-                                
+
+                               
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="text" required name="city" id="city" class="form-control" placeholder="City">
+                                    </div>            
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <input type="text" required name="holding_number" id="mobile" class="form-control" placeholder="Holding Number">
+                                    </div>            
+                                </div>
+    
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <textarea name="address" required id="address" cols="3" rows="3" placeholder="Address" class="form-control"></textarea>
+                                    </div>            
+                                </div>
     
                                 <div class="col-md-12">
                                     <div class="mb-3">
@@ -76,7 +102,7 @@
                         </div>
                     </div>    
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4 col-12">
                     <div class="sub-title">
                         <h2>Order Summery</h3>
                     </div>    
@@ -96,15 +122,21 @@
                                     $grand_total =  $grand_total + $item['discount_price'] * $item['quantity'];
                                     $total_quantity =  $total_quantity +  $item['quantity'];
                                 @endphp
+                                <input type="hidden" name="product_ids[]" value="{{$item['id']}}"> 
+                                <input type="hidden" name="quantites[]" value="{{$item['quantity']}}"> 
+                                <input type="hidden" name="weights[]" value="{{$item['weight']}}"> 
+                                <input type="hidden" name="prices[]" value="{{$item['discount_price'] * $item['quantity']}}"> 
                                 <div class="h6">{{$item['name']}} X {{$item['quantity']}}</div>
                                 <div class="h6">৳{{$item['discount_price'] * $item['quantity']}}</div>
                             </div>
                             @endforeach
+
                             @endif    
                             <input type="hidden" name="quantity" value="{{$total_quantity}}">                
                             <input type="hidden" name="price" value="{{$grand_total}}">                
                             <input type="hidden" name="shipping" value="0">                
                             <input type="hidden" name="sub_total" value="{{$grand_total}}">                
+                                          
                             <div class="d-flex justify-content-between summery-end">
                                 <div class="h6"><strong>Subtotal</strong></div>
                                 <div class="h6"><strong>৳{{$grand_total}}</strong></div>
@@ -170,5 +202,14 @@
 </section>
 @endsection
 @section('extra-js')
-
+<script>
+        $(document).on('change', '#has_registered_customer_checkbox', function (e) {
+            let test = e.target.checked;
+            if (test) {
+                $('#registered-customer-password').removeClass('d-none')
+            } else {
+                $('#registered-customer-password').addClass('d-none')
+            }
+        });
+</script>
 @endsection

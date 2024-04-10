@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('meta_title')->nullable();
             $table->longText('meta_description')->nullable();
             $table->longText('meta_keywords')->nullable();
+            $table->string('offer')->nullable();
             $table->enum('status',['in_stock','stock_out'])->default('in_stock');
             $table->timestamps();
         });

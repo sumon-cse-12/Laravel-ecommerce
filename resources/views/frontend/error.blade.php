@@ -24,7 +24,7 @@
 </style>
 @endsection
 @section('main-content')
-<section class="login-main-wrapper">
+<section class="section-10">
     <div class="about-us-header-container">
         <div class="container">
             <div class="row">

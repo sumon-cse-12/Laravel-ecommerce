@@ -47,7 +47,6 @@ class AuthController extends Controller
         
     }
     public function authenticate(Request $request){
-        dd($request->all());
 
         $credentials = [
             'email' => $request['email'],
@@ -80,5 +79,17 @@ class AuthController extends Controller
 
     public function profile(){
         return view('frontend.auth.profile');
+    }
+    public function profile_update(Request $request){
+           $customer = Customer::findOrFail($request->customer_id);
+           $customer->first_name = $request->first_name;
+           $customer->last_name = $request->last_name;
+           $customer->email = $request->email;
+           if ($request->password){
+            $customer->password = bcrypt($request->password);
+           }
+           $customer->phone_number = $request->phone_number;
+           $customer->save();
+           return redirect()->back()->with('success','Profile successfully update');
     }
 }

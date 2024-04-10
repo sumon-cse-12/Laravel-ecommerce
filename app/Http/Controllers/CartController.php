@@ -11,35 +11,78 @@ use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request){  
-        // var_dump($request->product_price);
-        $cart = session()->get('cart');
+//     public function addToCart(Request $request){  
 
-        $data = $request->session()->all();
-        $product = Product::findOrFail($request->product_id);
-        if(!$product){
-            return response()->json([
-                'status' => 'false',
-                'message'=> 'Product Not Found'
-            ]);
-        }
-        // $cart = $request->session()->get('cart');
-        if (isset($cart[$product->id])) {
-            $cart[$product->id]['quantity'] += 1;
-        } else {
-            $cart[$product->id] = [
-                "id" => $product->id,
-                "name" => $product->name,
-                "quantity" => 1,
-                "price" => 670,
-                "discount_price" => $request->product_price
-            ];
-        }
-        session()->put('cart', $cart);
-        return response()->json(['status' => 'true','message' => 'Product added to your cart']);
+//         $cart = session()->get('cart');
+
+//         $data = $request->session()->all();
+//         $product = Product::findOrFail($request->product_id);
+//         if(!$product){
+//             return response()->json([
+//                 'status' => 'false',
+//                 'message'=> 'Product Not Found'
+//             ]);
+//         }
+
+//         if (isset($cart[$product->id])) {
+//             $cart[$product->id]['quantity'] += 1;
+//         } else {
+//             $cart[$product->id] = [
+//                 "id" => $product->id,
+//                 "name" => $product->name,
+//                 "quantity" => 1,
+//                 "price" => 670,
+//                 "discount_price" => $request->product_price,
+//                 "weight" => $request->product_weight
+//             ];
+//         }
+//         session()->put('cart', $cart);
+//         return response()->json(['status' => 'true','message' => 'Product added to your cart']);
 
 
+// }
+
+public function addToCart(Request $request){  
+    // Retrieve the cart from the session
+    $cart = session()->get('cart');
+
+    // Find the product by its ID
+    $product = Product::find($request->product_id);
+
+    // Check if the product exists
+    if(!$product){
+        return response()->json([
+            'status' => 'false',
+            'message'=> 'Product Not Found'
+        ]);
+    }
+
+    // Generate a unique identifier for the cart item
+    $cartItemId = $product->id . '_' . $request->product_weight;
+
+    // If the cart already contains this item, increment its quantity
+    if (isset($cart[$cartItemId])) {
+        $cart[$cartItemId]['quantity'] += 1;
+    } else {
+        // Otherwise, add a new item to the cart
+        $cart[$cartItemId] = [
+            "id" => $product->id,
+            "name" => $product->name,
+            "quantity" => 1,
+            "price" => 670,
+            "discount_price" => $request->product_price,
+            "weight" => $request->product_weight,
+            "cart_item" => $cartItemId,
+        ];
+    }
+
+    // Update the cart in the session
+    session()->put('cart', $cart);
+
+    // Return a response indicating success
+    return response()->json(['status' => 'true','message' => 'Product added to your cart']);
 }
+
     public function cart(){
         $data['cart_products'] = [];
         if(session()->has('cart')){
@@ -51,9 +94,10 @@ class CartController extends Controller
     public function update_cart(Request $request){
         if(session()->has('cart')){
             $cart = session()->get('cart');
+            // dd($cart);
             // Check if the item with the given rowId already exists in the cart
             $existingItem = $cart[$request->rowId] ?? null;
-        
+            $product = Product::find($request->product_id);
             if($existingItem) {
                 // If the item exists, update its quantity
                 if($existingItem['quantity']>$request->quantity){
@@ -71,7 +115,9 @@ class CartController extends Controller
                     "name" => $product->name,
                     "quantity" => 1,
                     "price" => $product->regular_price,
-                    "discount_price" => $product->discount_price
+                    "discount_price" => $product->discount_price,
+                    "weight" => $product->weight,
+                    "cart_item" => $existingItem
                 ];
             }
         } else {
@@ -82,7 +128,8 @@ class CartController extends Controller
                     "name" => $product->name,
                     "quantity" => 1,
                     "price" => $product->regular_price,
-                    "discount_price" => $product->discount_price
+                    "discount_price" => $product->discount_price,
+                    "weight" => $request->product_weight
                 ]
             ];
         }
@@ -100,6 +147,45 @@ class CartController extends Controller
        ]);
 
     }
+    public function update_c3art(Request $request) {
+        $cart = session()->get('cart', []);
+
+        dd($cart);
+    
+        $existingItem = $cart[$request->rowId] ?? null;
+    
+        if ($existingItem) {
+            // Update quantity
+            $existingItem['quantity'] = $request->quantity > $existingItem['quantity'] ? $existingItem['quantity'] + 1 : $existingItem['quantity'] - 1;
+        } else {
+            // Add new item to cart
+            $product = Product::find($request->rowId);
+    
+            if (!$product) {
+                return response()->json([
+                    'status' => false,
+                    'message'=> 'Product not found'
+                ]);
+            }
+    
+            $cart[$request->rowId] = [
+                "id" => $request->rowId,
+                "name" => $product->name,
+                "quantity" => 1,
+                "price" => $product->regular_price,
+                "discount_price" => $product->discount_price,
+                "weight" => $product->weight
+            ];
+        }
+    
+        session()->put('cart', $cart);
+    
+        return response()->json([
+            'status'=> true,
+            'message'=> 'Cart updated successfully'
+        ]);
+    }
+    
     public function delete_cart(Request $request){
         // $itemInfo = Cart::find($request->rowId);
         // $itemInfo = Cart::get($request->rowId);

@@ -14,6 +14,7 @@ class CheckoutController extends Controller
 {
     public function store(Request $request)
     {
+        dd($request->all());
         // Validate the incoming request data
         $validatedData = $request->validate([
             'first_name' => 'required',
@@ -27,17 +28,20 @@ class CheckoutController extends Controller
     
         // Get the authenticated user
         $authUser = auth()->user();
-    
+        $customer = null;
         // Update or create the customer
-        $customer = Customer::updateOrCreate(
-            ['email' => $validatedData['email']],
-            [
-                'first_name' => $validatedData['first_name'],
-                'last_name' => $validatedData['last_name'],
-                'password' => bcrypt('123456') // You may want to use a more secure method for setting passwords
-                // Add other necessary fields here
-            ]
-        );
+        if($request->registered_customer){
+            $customer = Customer::updateOrCreate(
+                ['email' => $validatedData['email']],
+                [
+                    'first_name' => $validatedData['first_name'],
+                    'last_name' => $validatedData['last_name'],
+                    'password' => bcrypt($request->password) // You may want to use a more secure method for setting passwords
+                    // Add other necessary fields here
+                ]
+            );
+        }
+      
     
         // Proceed with the checkout process
         $checkoutData = $request->only([
@@ -56,8 +60,11 @@ class CheckoutController extends Controller
             'expiry_date',
             'delivery_type'
         ]);
-        $checkoutData['customer_id'] = $customer->id;
-        $checkout = Checkout::updateOrCreate(['customer_id' => $customer->id], $checkoutData);
+        $checkoutData['customer_id'] = $customer ? $customer->id : null;
+
+        // Update or create checkout record
+        $checkout = Checkout::updateOrCreate(['customer_id' => $checkoutData['customer_id']], $checkoutData);
+        
     
         // Clear the cart session if it exists
         if ($request->session()->has('cart')) {

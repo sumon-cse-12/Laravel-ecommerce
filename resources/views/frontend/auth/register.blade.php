@@ -17,26 +17,26 @@
         <div class="login-form">    
             <form action="{{route('front.register')}}" method="post">
                 @csrf
-                <h4 class="modal-title">Register Now</h4>
-                <div class="form-group">
+                <h4 class="modal-title mb-3">Register Now</h4>
+                <div class="form-group mb-3">
                     <input type="text" class="form-control" placeholder="First Name" id="name" name="first_name">
                 </div>
-                   <div class="form-group">
+                   <div class="form-group mb-3">
                     <input type="text" class="form-control" placeholder="Last Name" id="name" name="last_name">
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <input type="text" class="form-control" placeholder="Email" id="email" name="email">
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <input type="number" class="form-control" placeholder="Phone" id="phone" name="phone_number">
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <input type="password" class="form-control" placeholder="Password" id="password" name="password">
                 </div>
-                <div class="form-group">
+                <div class="form-group mb-3">
                     <input type="password" class="form-control" placeholder="Confirm Password" id="cpassword" name="cpassword">
                 </div>
-                <div class="form-group small">
+                <div class="form-group small mb-2">
                     <a href="#" class="forgot-link">Forgot Password?</a>
                 </div> 
                 <button type="submit" class="btn btn-dark btn-block btn-lg" value="Register">Register</button>

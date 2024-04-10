@@ -49,13 +49,13 @@
         autoplay: true,
         smartSpeed: 2000,
         center: false,
-        dots: true,
+        dots: false,
         loop: true,
         margin: 25,
         nav : true,
         navText : [
-            '<i class="bi bi-arrow-left"></i>',
-            '<i class="bi bi-arrow-right"></i>'
+            '<i class="bi bi-arrow-left d-none"></i>',
+            '<i class="bi bi-arrow-right d-none"></i>'
         ],
         responsiveClass: true,
         responsive: {

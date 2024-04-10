@@ -39,6 +39,7 @@
     <body>
         @php
         $app_section = get_settings('app_section') ? json_decode(get_settings('app_section')) : '';
+         $template = json_decode(get_settings('template'));
        @endphp
         <!-- Spinner Start -->
         <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
@@ -89,6 +90,8 @@
                         </div>
                         <div class="d-flex m-3 me-0">
                             <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search text-primary"></i></button>
+                            <a href="{{route('front.login')}}" class="position-relative me-4 my-auto"><i class="fa fa-user" aria-hidden="true"></i>
+                                My Account</a>
                             <a href="{{ route('front.cart') }}" class="position-relative me-4 my-auto">
                                 @php
         
@@ -177,9 +180,11 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-item">
                         <h4 class="text-light mb-3">Why People Like us!</h4>
-                        <p class="mb-4">typesetting, remaining essentially unchanged. It was 
-                            popularised in the 1960s with the like Aldus PageMaker including of Lorem Ipsum.</p>
-                        <a href="" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
+                        <div class="mb-4">
+                            {{isset($template->footer_why_choose_us_sec)?$template->footer_why_choose_us_sec:''}}
+                        </div>
+                        {{-- <p class="mb-4"></p> --}}
+                        <a href="#" class="btn border-secondary py-2 px-4 rounded-pill text-primary">Read More</a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -254,6 +259,7 @@
  
 $(document).on('click', '.add', function() {
     var rowId = $(this).attr('data-id');
+    var product_id = $(this).attr('data-product-id');
     var quantityInput = $('#product_quantity_' + rowId);
     var quantity = parseInt(quantityInput.val());
     
@@ -261,14 +267,14 @@ $(document).on('click', '.add', function() {
     quantity++;
     // Update the quantity input field
     quantityInput.val(quantity);
-    
     // Call a function to update the cart on the server
-    updateCart(rowId, quantity);
+    updateCart(rowId, quantity,product_id);
 });
 
 
 $(document).on('click', '.sub', function() {
     var rowId = $(this).attr('data-id');
+    var product_id = $(this).attr('data-product-id');
     var quantityInput = $('#product_quantity_' + rowId);
     var quantity = parseInt(quantityInput.val());
 
@@ -279,19 +285,20 @@ $(document).on('click', '.sub', function() {
         quantityInput.val(quantity);
 
         // Call a function to update the cart on the server
-        updateCart(rowId, quantity);
+        updateCart(rowId, quantity,product_id);
     }
 });
 
 
         // Function to update the cart on the server
-        function updateCart(rowId, quantity) {
+        function updateCart(rowId, quantity,product_id) {
             $.ajax({
                 type: "POST",
                 url: '{{ route('front.update.cart') }}',
                 data: {
                     rowId: rowId,
                     quantity: quantity,
+                    product_id: product_id,
                     "_token": "{{ csrf_token() }}"
                 },
                 dataType: 'json',
@@ -332,7 +339,6 @@ $(document).on('click', '.sub', function() {
             $('#confirmationModal').modal('hide'); // Hide the modal after clicking delete
         }
     function addToCart(id,weight,price) {
-        console.log(id,weight,price);
         $.ajax({
             type: "POST",
             url: '{{ route('front.add.to.cart') }}',
