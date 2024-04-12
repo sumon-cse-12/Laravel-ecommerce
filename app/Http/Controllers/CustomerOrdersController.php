@@ -33,7 +33,7 @@ class CustomerOrdersController extends Controller
             <strong>Email:</strong> <span>'. $q->email .'</span>
         </div>
         <div class="profile-info">
-            <strong>Phone Number:</strong> <span>' . $q->mobile . '</span>
+            <strong>Phone Number:</strong> <span>' . $q->phone_number . '</span>
         </div>';
         
         return $profile;
@@ -53,45 +53,7 @@ class CustomerOrdersController extends Controller
 
         ->addColumn('status', function ($q) {
             if ($q->status=='pending'){
-                // return '<button type="button" class="btn light btn-sm btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                //                             Pending
-                //            </button>
-                //            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                //            <button data-message="Are you sure, you want to reject this order?" data-action=' . route('admin.order.status', ['id' => $q->id, 'status' => 'rejected']) . '
-                //               data-input={"_method":"post"} data-toggle="modal" data-target="#modal-confirm" class="dropdown-item">
-                //                          Ready to rejected
-                //            </button>
-                           
-                //             <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);">
-                //                  <button data-message="Are you sure, you want to processing this order?" data-action=' . route('admin.order.status', ['id' => $q->id, 'status' => 'processing']) . '
-                //                     data-input={"_method":"post"} data-toggle="modal" data-target="#modal-confirm" class="dropdown-item">
-                //                                 Processing
-                //                  </button>
-                //             </div>
-                           
-                //        </div>';
-
-            //     return '<div class="dropdown">
-            //     <button class="btn btn-outline-danger btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            //         Pending
-            //     </button>
-            //     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            //         <li>
-            //         <button data-message="Are you sure, you want to reject this order?" data-action=' . route('admin.order.status', ['id' => $q->id, 'status' => 'rejected']) . '
-            //                       data-input={"_method":"post"} data-toggle="modal" data-target="#modal-confirm" class="dropdown-item">
-            //                                  Ready to rejected
-            //                    </button>
-            //         </li>
-
-            //         <li>
-            //         <button data-message="Are you sure, you want to processing this order?" data-action=' . route('admin.order.status', ['id' => $q->id, 'status' => 'processing']) . '
-            //             data-input={"_method":"post"} data-toggle="modal" data-target="#modal-confirm" class="dropdown-item">
-            //                 Processing
-            //         </button>
-            //         </li>
-            //     </ul>
-            // </div>';
-
+              
             return '<div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              Pending
@@ -149,15 +111,15 @@ class CustomerOrdersController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         // Validate the incoming request data
         $validatedData = $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'address' => 'required',
             'city' => 'required',
-            'mobile' => 'required',
-            'holding_number' => 'required',
-            'email' => 'required|email',
+            'phone_number' => 'required',
+            // 'email' => 'required|email',
             // Add more validation rules as needed
         ]);
     
@@ -168,16 +130,15 @@ class CustomerOrdersController extends Controller
 
         // Update or create the customer
         if($request->registered_customer){
-            $customer = Customer::updateOrCreate(
-                ['email' => $validatedData['email']],
-                [
-                    'first_name' => $validatedData['first_name'],
-                    'last_name' => $validatedData['last_name'],
-                    'password' => bcrypt($request->password) // You may want to use a more secure method for setting passwords
-                    // Add other necessary fields here
-                ]
-            );
+            $customer = new Customer();
+            $customer->first_name = $request->first_name;
+            $customer->last_name = $request->last_name;
+            $customer->password = bcrypt($request->password);
+            $customer->email = $request->email;
+            $customer->phone_number = $request->phone_number;
+            $customer->save();
         }
+
         // $checkoutData['customer_id'] = $customer ? $customer->id : null;
         $customer_order = new CustomerOrder();
         if($auth){
@@ -189,7 +150,7 @@ class CustomerOrdersController extends Controller
         $customer_order->first_name = $request->first_name;
         $customer_order->last_name = $request->last_name;
         $customer_order->email = $request->email;
-        $customer_order->mobile = $request->mobile;
+        $customer_order->phone_number = $request->phone_number;
         $customer_order->postal_code = $request->postal_code;
         $customer_order->city = $request->city;
         $customer_order->address = $request->address;

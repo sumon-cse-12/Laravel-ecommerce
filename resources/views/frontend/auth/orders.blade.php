@@ -37,8 +37,8 @@
                     <div class="card-header">
                         <h2 class="h5 mb-0 pt-2 pb-2">My Orders</h2>
                     </div>
-                    <div class="card-body p-4">
-                        <table class="table">
+                    <div class="card-body p-4 table-responsive">
+                        <table class="table table-head-fixed text-nowrap">
                             <thead>
                               <tr>
                                 <th scope="col">Order Number</th>

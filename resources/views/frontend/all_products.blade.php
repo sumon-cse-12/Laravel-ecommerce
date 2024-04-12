@@ -24,7 +24,7 @@
         <div class="row g-4">
             @if(isset($products) && $products)
             @foreach ($products as $product)
-            <div class="col-md-6 col-lg-4 col-xl-3">
+            <div class="col-md-6 col-6 col-lg-4 col-xl-3">
                 <div class="custom-product-cart">
                   <div class="product-card-body">
                       <div class="product-card-img-sec">
@@ -47,7 +47,7 @@
                                     </a>
                                 </div>
     
-                          <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                          <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between d-flex justify-content-between">
                               <div class="d-flex align-items-baseline">
                                   <i class="fas fa-star product-star"></i>
                                   <i class="fas fa-star product-star"></i>
@@ -56,26 +56,27 @@
                                   <i class="fas fa-star product-half-star"></i>
                                   <i class="product-review-count"><span>(10 reviews)</span></i>
                               </div>
-                              <div class="produc-cart-price-sec">
-                          
-                                    @if (isset($product->variations) && $product->variations)
-                                        @php
-                                            $v_price = 0;
-                                        @endphp
-                                       @foreach ($product->variations as $key => $variation)
-                                       @php
-                                           if($key==0){
-                                            $v_price = $variation->discount_price;
-                                           }
-                                       @endphp
-                                       @endforeach
-                                       <p class="fw-bold">৳{{$v_price}}</p>
-                                    {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                    @endif
-                       
-                                 
-                              </div>
+                              
                           </div>
+                          <div class="produc-cart-price-sec">
+                          
+                            @if (isset($product->variations) && $product->variations)
+                                @php
+                                    $v_price = 0;
+                                @endphp
+                               @foreach ($product->variations as $key => $variation)
+                               @php
+                                   if($key==0){
+                                    $v_price = $variation->discount_price;
+                                   }
+                               @endphp
+                               @endforeach
+                               <p class="fw-bold">৳{{$v_price}}</p>
+                            {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                            @endif
+               
+                         
+                      </div>
 
                           <div class="product-add-n-wish-btn-sec">
                               <div class="product-add-to-cart-button">

@@ -15,40 +15,55 @@ use App\Models\ProductVariation;
 class FrontController extends Controller
 {
   public function products(){
-    $data['products'] = Product::get();
+    $data['products'] = Product::all();
     return view('frontend.all_products',$data);
   }
 
     public function index(){
+
         $data['feature_products'] = Product::orderBy('created_at','DESC')->limit(4)->get();
         $data['blogs'] = Blog::orderBy('created_at','DESC')->limit(4)->get();
-        // dd($data['feature_products']);
         $data['best_selling_products'] = Product::orderBy('created_at','ASC')->get();
-        // $data['v_products'] = ProductVariation::orderBy('created_at','ASC')->get();
-        // dd($data['v_products']);
         $products = Product::with('variations')->get();
         $data['products'] = $products;
-
-        
         $hairOilCategory = Category::where('name', 'Hair oil')->first();
-        $data['hair_oils'] = Product::where('category_id', $hairOilCategory->id)->get();
+        if($hairOilCategory){
+          $hair_oils = Product::where('category_id', $hairOilCategory->id)->get();
+          $data['hair_oils'] = $hair_oils;
+        }else{
+          
+          $data['hair_oils'] = [];
 
+        }
         $babyOilCategory = Category::where('name', 'Baby oil')->first();
-        $data['baby_oils'] = Product::where('category_id', $babyOilCategory->id)->get();
+        if($babyOilCategory){
+          $data['baby_oils'] = Product::where('category_id', $babyOilCategory->id)->get();
+        }else{
+          $data['baby_oils'] = [];
+        }
 
         $mensBeardOilCategory = Category::where('slug', 'mens-beard-oil')->first();
-        $data['mens_beard_oils'] = Product::where('category_id', $mensBeardOilCategory->id)->get();
-
+        if(!$mensBeardOilCategory){
+          $data['mens_beard_oils'] = [];
+        }else{
+          $data['mens_beard_oils'] = Product::where('category_id', $mensBeardOilCategory->id)->get();
+        }
         $facialSerumCategory = Category::where('name', 'Facial Serum')
         ->orWhere('name', 'Face Powder')
         ->get();
-    
-    $facialSerumCategoryIds = $facialSerumCategory->pluck('id');
-    
-    $data['facial_serums'] = Product::whereIn('category_id', $facialSerumCategoryIds)->get();
+        if($facialSerumCategory){
+          $facialSerumCategoryIds = $facialSerumCategory->pluck('id');
+          $data['facial_serums'] = Product::whereIn('category_id', $facialSerumCategoryIds)->get();
+        }else{
+          $data['facial_serums'] = [];
+        }
+
         $bodyOilCategory = Category::where('name', 'Body Oil')->first();
-        $data['body_oils'] = Product::where('category_id', $bodyOilCategory->id)->get();
-        
+        if(!$bodyOilCategory){
+          $data['body_oils'] = [];
+        }else{
+        $data['body_oils'] = Product::where('category_id', $bodyOilCategory->id)->get(); 
+       }
         return view('frontend.index',$data);
     }
 

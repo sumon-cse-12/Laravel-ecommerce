@@ -147,26 +147,27 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                       <i class="fas fa-star product-half-star"></i>
                                                       <i class="product-review-count"><span>(10 reviews)</span></i>
                                                   </div>
-                                                  <div class="produc-cart-price-sec">
-                                              
-                                                        @if (isset($product->variations) && $product->variations)
-                                                            @php
-                                                                $v_price = 0;
-                                                            @endphp
-                                                           @foreach ($product->variations as $key => $variation)
-                                                           @php
-                                                               if($key==0){
-                                                                $v_price = $variation->discount_price;
-                                                               }
-                                                           @endphp
-                                                           @endforeach
-                                                           <p class="fw-bold">৳{{$v_price}}</p>
-                                                        {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                        @endif
-                                           
-                                                     
-                                                  </div>
+                                                  
                                               </div>
+                                              <div class="produc-cart-price-sec">
+                                              
+                                                @if (isset($product->variations) && $product->variations)
+                                                    @php
+                                                        $v_price = 0;
+                                                    @endphp
+                                                   @foreach ($product->variations as $key => $variation)
+                                                   @php
+                                                       if($key==0){
+                                                        $v_price = $variation->discount_price;
+                                                       }
+                                                   @endphp
+                                                   @endforeach
+                                                   <p class="fw-bold pb-0">৳{{$v_price}}</p>
+                                                {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                @endif
+                                   
+                                             
+                                          </div>
 
                                               <div class="product-add-n-wish-btn-sec ">
                                                   <div class="product-add-to-cart-button">
@@ -220,26 +221,27 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                               <i class="fas fa-star product-half-star"></i>
                                                               <i class="product-review-count"><span>(10 reviews)</span></i>
                                                           </div>
-                                                          <div class="produc-cart-price-sec">
-                                                      
-                                                                @if (isset($hair_oil->variations) && $hair_oil->variations)
-                                                                    @php
-                                                                        $v_price = 0;
-                                                                    @endphp
-                                                                   @foreach ($hair_oil->variations as $key => $variation)
-                                                                   @php
-                                                                       if($key==0){
-                                                                        $v_price = $variation->discount_price;
-                                                                       }
-                                                                   @endphp
-                                                                   @endforeach
-                                                                   <p class="fw-bold">৳{{$v_price}}</p>
-                                                                {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                                @endif
-                                                   
-                                                             
-                                                          </div>
+                                                          
                                                       </div>
+                                                      <div class="produc-cart-price-sec">
+                                                      
+                                                        @if (isset($hair_oil->variations) && $hair_oil->variations)
+                                                            @php
+                                                                $v_price = 0;
+                                                            @endphp
+                                                           @foreach ($hair_oil->variations as $key => $variation)
+                                                           @php
+                                                               if($key==0){
+                                                                $v_price = $variation->discount_price;
+                                                               }
+                                                           @endphp
+                                                           @endforeach
+                                                           <p class="fw-bold pb-0">৳{{$v_price}}</p>
+                                                        {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                        @endif
+                                           
+                                                     
+                                                  </div>
                                         
                                                       <div class="product-add-n-wish-btn-sec">
                                                           <div class="product-add-to-cart-button">
@@ -295,26 +297,27 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                       <i class="fas fa-star product-half-star"></i>
                                                       <i class="product-review-count"><span>(10 reviews)</span></i>
                                                   </div>
-                                                  <div class="produc-cart-price-sec">
-                                              
-                                                        @if (isset($baby_oil->variations) && $baby_oil->variations)
-                                                            @php
-                                                                $v_price = 0;
-                                                            @endphp
-                                                           @foreach ($baby_oil->variations as $key => $variation)
-                                                           @php
-                                                               if($key==0){
-                                                                $v_price = $variation->discount_price;
-                                                               }
-                                                           @endphp
-                                                           @endforeach
-                                                           <p class="fw-bold">৳{{$v_price}}</p>
-                                                        {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                        @endif
-                                           
-                                                     
-                                                  </div>
+                                                 
                                               </div>
+                                              <div class="produc-cart-price-sec">
+                                              
+                                                @if (isset($baby_oil->variations) && $baby_oil->variations)
+                                                    @php
+                                                        $v_price = 0;
+                                                    @endphp
+                                                   @foreach ($baby_oil->variations as $key => $variation)
+                                                   @php
+                                                       if($key==0){
+                                                        $v_price = $variation->discount_price;
+                                                       }
+                                                   @endphp
+                                                   @endforeach
+                                                   <p class="fw-bold pb-0">৳{{$v_price}}</p>
+                                                {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                @endif
+                                   
+                                             
+                                          </div>
                                 
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
@@ -367,26 +370,27 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                       <i class="fas fa-star product-half-star"></i>
                                                       <i class="product-review-count"><span>(10 reviews)</span></i>
                                                   </div>
-                                                  <div class="produc-cart-price-sec">
-                                              
-                                                        @if (isset($mens_beard_oil->variations) && $mens_beard_oil->variations)
-                                                            @php
-                                                                $v_price = 0;
-                                                            @endphp
-                                                           @foreach ($mens_beard_oil->variations as $key => $variation)
-                                                           @php
-                                                               if($key==0){
-                                                                $v_price = $variation->discount_price;
-                                                               }
-                                                           @endphp
-                                                           @endforeach
-                                                           <p class="fw-bold">৳{{$v_price}}</p>
-                                                        {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                        @endif
-                                           
-                                                     
-                                                  </div>
+                                                  
                                               </div>
+                                              <div class="produc-cart-price-sec">
+                                              
+                                                @if (isset($mens_beard_oil->variations) && $mens_beard_oil->variations)
+                                                    @php
+                                                        $v_price = 0;
+                                                    @endphp
+                                                   @foreach ($mens_beard_oil->variations as $key => $variation)
+                                                   @php
+                                                       if($key==0){
+                                                        $v_price = $variation->discount_price;
+                                                       }
+                                                   @endphp
+                                                   @endforeach
+                                                   <p class="fw-bold pb-0">৳{{$v_price}}</p>
+                                                {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                @endif
+                                   
+                                             
+                                          </div>
                                 
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
@@ -438,26 +442,27 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                       <i class="fas fa-star product-half-star"></i>
                                                       <i class="product-review-count"><span>(10 reviews)</span></i>
                                                   </div>
-                                                  <div class="produc-cart-price-sec">
-                                              
-                                                        @if (isset($facial_serum->variations) && $facial_serum->variations)
-                                                            @php
-                                                                $v_price = 0;
-                                                            @endphp
-                                                           @foreach ($facial_serum->variations as $key => $variation)
-                                                           @php
-                                                               if($key==0){
-                                                                $v_price = $variation->discount_price;
-                                                               }
-                                                           @endphp
-                                                           @endforeach
-                                                           <p class="fw-bold">৳{{$v_price}}</p>
-                                                        {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                        @endif
-                                           
-                                                     
-                                                  </div>
+                                                  
                                               </div>
+                                              <div class="produc-cart-price-sec">
+                                              
+                                                @if (isset($facial_serum->variations) && $facial_serum->variations)
+                                                    @php
+                                                        $v_price = 0;
+                                                    @endphp
+                                                   @foreach ($facial_serum->variations as $key => $variation)
+                                                   @php
+                                                       if($key==0){
+                                                        $v_price = $variation->discount_price;
+                                                       }
+                                                   @endphp
+                                                   @endforeach
+                                                   <p class="fw-bold pb-0">৳{{$v_price}}</p>
+                                                {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                @endif
+                                   
+                                             
+                                          </div>
                                 
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
@@ -510,26 +515,27 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                       <i class="fas fa-star product-half-star"></i>
                                                       <i class="product-review-count"><span>(10 reviews)</span></i>
                                                   </div>
-                                                  <div class="produc-cart-price-sec">
-                                              
-                                                        @if (isset($body_oil->variations) && $body_oil->variations)
-                                                            @php
-                                                                $v_price = 0;
-                                                            @endphp
-                                                           @foreach ($body_oil->variations as $key => $variation)
-                                                           @php
-                                                               if($key==0){
-                                                                $v_price = $variation->discount_price;
-                                                               }
-                                                           @endphp
-                                                           @endforeach
-                                                           <p class="fw-bold">৳{{$v_price}}</p>
-                                                        {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                        @endif
-                                           
-                                                     
-                                                  </div>
+                                                  
                                               </div>
+                                              <div class="produc-cart-price-sec">
+                                              
+                                                @if (isset($body_oil->variations) && $body_oil->variations)
+                                                    @php
+                                                        $v_price = 0;
+                                                    @endphp
+                                                   @foreach ($body_oil->variations as $key => $variation)
+                                                   @php
+                                                       if($key==0){
+                                                        $v_price = $variation->discount_price;
+                                                       }
+                                                   @endphp
+                                                   @endforeach
+                                                   <p class="fw-bold pb-0">৳{{$v_price}}</p>
+                                                {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                @endif
+                                   
+                                             
+                                          </div>
                                 
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
@@ -667,26 +673,27 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                       <i class="fas fa-star product-half-star"></i>
                                                       <i class="product-review-count"><span>(10 reviews)</span></i>
                                                   </div>
-                                                  <div class="produc-cart-price-sec">
-                                              
-                                                        @if (isset($product->variations) && $product->variations)
-                                                            @php
-                                                                $v_price = 0;
-                                                            @endphp
-                                                           @foreach ($product->variations as $key => $variation)
-                                                           @php
-                                                               if($key==0){
-                                                                $v_price = $variation->discount_price;
-                                                               }
-                                                           @endphp
-                                                           @endforeach
-                                                           <p class="fw-bold">৳{{$v_price}}</p>
-                                                        {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                        @endif
-                                           
-                                                     
-                                                  </div>
+                                                  
                                               </div>
+                                              <div class="produc-cart-price-sec">
+                                              
+                                                @if (isset($product->variations) && $product->variations)
+                                                    @php
+                                                        $v_price = 0;
+                                                    @endphp
+                                                   @foreach ($product->variations as $key => $variation)
+                                                   @php
+                                                       if($key==0){
+                                                        $v_price = $variation->discount_price;
+                                                       }
+                                                   @endphp
+                                                   @endforeach
+                                                   <p class="fw-bold pb-0">৳{{$v_price}}</p>
+                                                {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                @endif
+                                   
+                                             
+                                          </div>
     
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
@@ -807,7 +814,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                
                                 <div class="review-sec-footer">
                                     test
-                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
                                         <div class="">
                                             <i class="fas fa-star product-star"></i>
                                             <i class="fas fa-star product-star"></i>
@@ -834,7 +841,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                
                                 <div class="review-sec-footer">
                                     test
-                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
                                         <div class="">
                                             <i class="fas fa-star product-star"></i>
                                             <i class="fas fa-star product-star"></i>
@@ -861,7 +868,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                
                                 <div class="review-sec-footer">
                                     test
-                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
                                         <div class="">
                                             <i class="fas fa-star product-star"></i>
                                             <i class="fas fa-star product-star"></i>
@@ -888,7 +895,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                
                                 <div class="review-sec-footer">
                                     test
-                                    <div class="product-review-n-price-sec mt-2 mb-1">
+                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
                                         <div class="">
                                             <i class="fas fa-star product-star"></i>
                                             <i class="fas fa-star product-star"></i>

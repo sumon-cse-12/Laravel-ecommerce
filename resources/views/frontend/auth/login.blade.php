@@ -24,7 +24,8 @@
                     <h4 class="modal-title mb-3">Login to Your Account</h4>
                     <div class="form-group mb-3">
                         <input type="hidden" name="checkout_process" id="checkout_process">
-                        <input type="email" class="form-control" placeholder="Email" name="email" value="{{old('email')}}" required="required">
+                        {{-- <input type="email" class="form-control" placeholder="Email" name="email" value="{{old('email')}}" required="required"> --}}
+                        <input type="number" class="form-control" placeholder="Phone Number" name="phone_number" value="{{old('phone_number')}}" required="required">
                     </div>
                     <div class="form-group mb-3">
                         <input type="password" class="form-control" placeholder="Password" name="password" value="{{old('password')}}" required="required">

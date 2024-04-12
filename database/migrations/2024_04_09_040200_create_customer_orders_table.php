@@ -16,18 +16,18 @@ return new class extends Migration
             $table->integer('customer_id')->nullable();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->longText('address');
             $table->string('city');
-            $table->string('postal_code');
-            $table->string('mobile');
+            $table->string('postal_code')->nullable();
+            $table->string('phone_number');
             $table->text('shipping');
-            $table->text('holding_number');
+            $table->text('holding_number')->nullable();
             $table->longText('order_notes')->nullable();
             $table->longText('total');
             $table->longText('order_number');
             $table->enum('delivery_type',['cash_on_delivery','card'])->default('cash_on_delivery');
-            $table->enum('status',['pending','processing','on_the_way','delivery','rejected'])->default('pending');
+            $table->enum('status',['pending','processing','on_the_way','delivered','rejected'])->default('pending');
             $table->timestamps();
         });
     }

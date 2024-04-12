@@ -53,7 +53,7 @@
                                 
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <input type="text" required name="email" id="email" class="form-control" placeholder="Email">
+                                        <input type="text" name="email" id="email" class="form-control" placeholder="Email (optional)">
                                     </div>            
                                 </div>
                                 <div class="col-md-12 d-none" id="registered-customer-password">
@@ -63,13 +63,13 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <input type="text" required name="mobile" id="mobile" class="form-control" placeholder="Phone Number">
+                                        <input type="text" required name="phone_number" id="mobile" class="form-control" placeholder="Phone Number">
                                     </div>            
                                 </div>
 
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <input type="text" required name="postal_code" id="mobile" class="form-control" placeholder="Zip/Postal Code">
+                                        <input type="text" name="postal_code" id="mobile" class="form-control" placeholder="Zip/Postal Code (optional)">
                                     </div>            
                                 </div>
 
@@ -82,7 +82,7 @@
 
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <input type="text" required name="holding_number" id="mobile" class="form-control" placeholder="Holding Number">
+                                        <input type="text" name="holding_number" id="mobile" class="form-control" placeholder="Holding Number (optional)">
                                     </div>            
                                 </div>
     

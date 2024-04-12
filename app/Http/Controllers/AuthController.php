@@ -25,7 +25,6 @@ class AuthController extends Controller
     public function register(Request $request){
       
         $request->validate([
-            'email'=> 'required',
             'phone_number'=> 'required',
             'password'=> 'required',
             'cpassword'=> 'required',
@@ -47,34 +46,25 @@ class AuthController extends Controller
         
     }
     public function authenticate(Request $request){
-
         $credentials = [
-            'email' => $request['email'],
+            'phone_number' => $request['phone_number'],
             'password' => $request['password'],
         ];
 
-    //    dd($request->all());
-    // dd($credentials);
         if(Auth::guard('customer')->attempt($credentials)){
             if($request->checkout_process=='process=ready-to-checkout'){
                 return redirect()->route('front.checkout.cart');
 
             }else if($request->checkout_process=='process=ready-to-add-to-cart'){
-                dd('ppp ddd');
+            
                 return redirect()->route('front.checkout.cart');
             } else{
-                // dd('ppspsps sshhshs');
                 return redirect()->route('front.profile');
             }
         }
         else{
-            dd('paaaaassssssssss');
              return back()->withErrors(['message'=>'Invalid email or password. Please try again.']);
         }
-        // else if($request->checkout_process=='process=ready-to-checkout'){
-        //     return redirect()->route('front.checkout.cart');
-        // }
-        // return back()->withInput()->withErrors(['message'=>'Invalid email or password. Please try again.']);
     }
 
     public function profile(){

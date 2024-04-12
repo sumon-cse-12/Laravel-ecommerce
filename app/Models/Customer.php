@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Customer extends Authenticatable
 {
     protected $fillable = [
-   'first_name', 'last_name', 'email', 'password'
+   'first_name', 'last_name', 'email', 'password','phone_number'
     ];
     use HasFactory;
     public function checkouts(){

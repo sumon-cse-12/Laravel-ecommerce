@@ -253,10 +253,9 @@
 <script src="{{ asset('frontend/js/slick.min.js') }}"></script>
 <!-- Template Javascript -->
 <script src="{{asset('frontend/js/main.js')}}"></script>
-
+@yield('custom-js')
 <script type="text/javascript">
 
- 
 $(document).on('click', '.add', function() {
     var rowId = $(this).attr('data-id');
     var product_id = $(this).attr('data-product-id');
