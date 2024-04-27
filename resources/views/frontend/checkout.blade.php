@@ -139,15 +139,26 @@
                                           
                             <div class="d-flex justify-content-between summery-end">
                                 <div class="h6"><strong>Subtotal</strong></div>
+                                @php
+                                    $shipping_charge =100;
+                                @endphp
                                 <div class="h6"><strong>৳{{$grand_total}}</strong></div>
                             </div>
                             <div class="d-flex justify-content-between mt-2">
                                 <div class="h6"><strong>Shipping</strong></div>
+                                @if ($grand_total<1500)
+                                <div class="h6"><strong>৳100</strong></div>
+                               @else
                                 <div class="h6"><strong>৳0</strong></div>
+                                @endif
                             </div>
                             <div class="d-flex justify-content-between mt-2 summery-end">
                                 <div class="h5"><strong>Total</strong></div>
-                                <div class="h5"><strong>৳ {{$grand_total}}</strong></div>
+                                @if ($grand_total<1500)
+                                <div class="h5"><strong>৳{{$grand_total + $shipping_charge}}</strong></div>
+                                @else
+                                <div class="h5"><strong>৳{{$grand_total}}</strong></div>
+                                @endif
                             </div>                            
                         </div>
                     </div>   

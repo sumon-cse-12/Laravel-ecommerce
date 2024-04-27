@@ -28,9 +28,9 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{isset($all_orders)?$all_orders:''}}</h3>
 
-              <p>New Orders</p>
+              <p>All Orders</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -43,9 +43,8 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
+              <h3>{{isset($pending_orders)?$pending_orders:''}}</h3>
+              <p>Pending Orders</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -58,9 +57,9 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{isset($registered_customer)?$registered_customer:''}}</h3>
 
-              <p>User Registrations</p>
+              <p>Registered Customers</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -73,9 +72,9 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>65</h3>
+              <h3>{{isset($total_sales)?$total_sales:''}} Taka</h3>
 
-              <p>Unique Visitors</p>
+              <p>Total Sales</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>

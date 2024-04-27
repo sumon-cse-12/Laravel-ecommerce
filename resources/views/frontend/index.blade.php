@@ -124,7 +124,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                 $images = json_decode($product->image);
                                                 $singleImage = $images[0];
                                             @endphp
-                                           <a href="{{route('front.product',[$product->slug])}}">
+                                           <a class="product-link-viewContent" href="{{route('front.product',[$product->slug])}}">
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
