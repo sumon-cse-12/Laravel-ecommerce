@@ -207,8 +207,8 @@ class CustomerOrdersController extends Controller
 
        return redirect()->route('admin.order.index')->with('success', trans('Order status successfully changed'));
    }
-   public function delete(Request $request){
-       $order = CustomerOrder::where('id',$request->id)->firstOrFail();
+   public function delete($id){
+       $order = CustomerOrder::where('id',$id)->firstOrFail();
        $order->order_items()->delete();
        $order->delete();
        return redirect()->route('admin.order.index')->with('success', trans('Order status successfully deleted'));

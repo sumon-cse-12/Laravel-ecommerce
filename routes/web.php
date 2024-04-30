@@ -109,7 +109,7 @@ Route::group(['middleware' => 'admin.auth'], function () {
 
     Route::get('/order/index', [CustomerOrdersController::class,'index'])->name('order.index');
     Route::post('/order/status', [CustomerOrdersController::class,'status'])->name('order.status');
-    Route::get('/order/delete', [CustomerOrdersController::class,'delete'])->name('order.delete');
+    Route::delete('/order/delete/{id}', [CustomerOrdersController::class,'delete'])->name('order.delete');
     Route::get('/order/get/all', [CustomerOrdersController::class,'getAll'])->name('orders.get.all');
     Route::get('/settings/index', [SettingsController::class,'index'])->name('settings.index');
     Route::post('/settings/app/store', [SettingsController::class,'app_store'])->name('settings.app.store');
