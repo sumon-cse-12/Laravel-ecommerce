@@ -19,7 +19,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            {{-- <th scope="col">Products</th> --}}
                             <th scope="col">Name</th>
                             <th scope="col">Price</th>
                             <th scope="col">Quantity</th>
@@ -31,7 +30,6 @@
                         @php
                             $total_price = 0;
                             $shipping_charge = 100;
-                            // dd($cart_products);
                         @endphp
                         @foreach ($cart_products as $key => $cart_product)
                             @php
@@ -40,12 +38,6 @@
                                 $itemId = now();
                             @endphp
                             <tr>
-
-                                {{-- <th scope="row">
-                            <div class="d-flex align-items-center">
-                                <img src="img/vegetable-item-3.png" class="img-fluid me-5 rounded-circle" style="width: 80px; height: 80px;" alt="">
-                            </div>
-                        </th> --}}
                                 <td>
                                     <p class="mb-0 mt-4">{{ isset($cart_product['name']) ? $cart_product['name'] : '' }} ({{$cart_product['weight']}})</p>
                                 </td>
@@ -60,9 +52,6 @@
                                                 data-id={{ $cart_product['cart_item'] }}  data-product-id={{ $cart_product['id'] }}>
                                                 <i class="fa fa-minus"></i>
                                             </button>
-                                            {{-- <button class="btn btn-sm btn-minus rounded-circle bg-light border sub" data-id={{$cart_product['id']}} >
-                                        <i class="fa fa-minus"></i>
-                                        </button> --}}
                                         </div>
                                         <input type="text"
                                             class="form-control form-control-sm text-center border-0 qty-value"
@@ -74,9 +63,6 @@
                                                 data-id={{ $cart_product['cart_item'] }} data-product-id={{ $cart_product['id'] }}>
                                                 <i class="fa fa-plus"></i>
                                             </button>
-                                            {{-- <button class="btn btn-sm btn-plus rounded-circle bg-light border add"  data-id={{$cart_product['id']}}>
-                                        <i class="fa fa-plus"></i>
-                                    </button> --}}
                                         </div>
                                     </div>
                                 </td>
@@ -110,12 +96,12 @@
                             <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
                             <div class="d-flex justify-content-between mb-4">
                                 <h5 class="mb-0 me-4">Subtotal:</h5>
-                              
+
                                 <p class="mb-0">৳{{isset($total_price)?$total_price:'0'}}</p>
                             </div>
                             <div class="d-flex justify-content-between">
                                 <h5 class="mb-0 me-4">Shipping</h5>
-                               
+
                                 <div class="">
                                     @if ($total_price < 1500)
                                     <p class="mb-0">৳{{$shipping_charge}}</p>
