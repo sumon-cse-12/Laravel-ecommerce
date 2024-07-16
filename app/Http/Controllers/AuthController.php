@@ -23,27 +23,27 @@ class AuthController extends Controller
         return view('frontend.auth.register');
     }
     public function register(Request $request){
-      
+
         $request->validate([
             'phone_number'=> 'required',
             'password'=> 'required',
             'cpassword'=> 'required',
         ]);
         if($request->password != $request->cpassword){
- 
+
             return back()->withErrors(['msg' => 'Invalid email or password. Please try again.']);
-        }  
+        }
         $customer = new Customer();
         $customer->first_name = $request->first_name;
         $customer->last_name = $request->last_name;
         $customer->email = $request->email;
         $customer->phone_number = $request->phone_number;
         $customer->password = Hash::make($request->password);
-        $customer->save();  
+        $customer->save();
         return redirect()->route('front.login')
         ->with('success', 'Congratulations !! Registered');
         // return redirect()->back()->with('success', 'Congratulations !! Registered');
-        
+
     }
     public function authenticate(Request $request){
         $credentials = [
@@ -56,7 +56,7 @@ class AuthController extends Controller
                 return redirect()->route('front.checkout.cart');
 
             }else if($request->checkout_process=='process=ready-to-add-to-cart'){
-            
+
                 return redirect()->route('front.checkout.cart');
             } else{
                 return redirect()->route('front.profile');

@@ -12,10 +12,19 @@ class Customer extends Authenticatable
    'first_name', 'last_name', 'email', 'password','phone_number'
     ];
     use HasFactory;
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     public function checkouts(){
         return $this->hasMany(Checkout::class);
     }
     public function orders(){
         return $this->hasMany(Order::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

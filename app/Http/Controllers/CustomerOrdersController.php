@@ -23,7 +23,7 @@ class CustomerOrdersController extends Controller
 
             return $q->order_number;
         })
-    
+
         ->addColumn('profile', function ($q) {
             $profile = '<div class="profile-info">
             <strong>Full Name:</strong> <span>' . $q->first_name . ' ' . $q->last_name . '</span>
@@ -35,9 +35,9 @@ class CustomerOrdersController extends Controller
         <div class="profile-info">
             <strong>Phone Number:</strong> <span>' . $q->phone_number . '</span>
         </div>';
-        
+
         return $profile;
-        
+
         })
 
         ->addColumn('products', function ($q) {
@@ -46,14 +46,14 @@ class CustomerOrdersController extends Controller
                 $products .= '<li>' . $item->product->name . ' (' . $item->weight . ') Qty: (' . $item->quantity . ')</li>';
             }
             $products .= '</ul>';
-            
+
             return $products;
-            
+
         })
 
         ->addColumn('status', function ($q) {
             if ($q->status=='pending'){
-              
+
             return '<div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
              Pending
@@ -98,7 +98,7 @@ class CustomerOrdersController extends Controller
             }
 
         })
-        ->addColumn('action',function($q){   
+        ->addColumn('action',function($q){
             return '<a class="btn btn-danger btn-sm" href="#" data-message="Are you sure you want to delete ?"
                                     data-action='.route('admin.order.delete',['id' => $q->id]).'
                                     data-input={"_method":"delete"}
@@ -122,9 +122,9 @@ class CustomerOrdersController extends Controller
             // 'email' => 'required|email',
             // Add more validation rules as needed
         ]);
-    
+
         // Get the authenticated user
-        
+
         $customer = null;
         $auth = auth('customer')->user();
 
@@ -135,7 +135,13 @@ class CustomerOrdersController extends Controller
             $customer->last_name = $request->last_name;
             $customer->password = bcrypt($request->password);
             $customer->email = $request->email;
-            $customer->phone_number = $request->phone_number;
+            $already_registered = Customer::where('phone_number', $request->phone_number)->first();
+            if($already_registered){
+                $already_registered->phone_number = $request->phone_number;
+                $already_registered->save();
+            }else{
+                $customer->phone_number = $request->phone_number;
+            }
             $customer->save();
         }
 
@@ -146,7 +152,7 @@ class CustomerOrdersController extends Controller
         }else{
             $customer_order->customer_id = $customer ? $customer->id : null;
         }
-       
+
         $customer_order->first_name = $request->first_name;
         $customer_order->last_name = $request->last_name;
         $customer_order->email = $request->email;
@@ -163,24 +169,24 @@ class CustomerOrdersController extends Controller
         $customer_order_items = [];
 
         foreach($request->product_ids as $key => $product_id){
-        
+
             $customer_order_items[] = [
                 'product_id' => $product_id,
-                'customer_order_id' => $customer_order->id, 
-                'quantity' => $request->quantites[$key], 
+                'customer_order_id' => $customer_order->id,
+                'quantity' => $request->quantites[$key],
                 'weight' => $request->weights[$key],
                 'price' => $request->prices[$key],
             ];
         }
 
         OrderItem::insert($customer_order_items);
-        
-    
+
+
         // Clear the cart session if it exists
         if ($request->session()->has('cart')) {
             $request->session()->forget('cart');
         }
-    
+
         // Redirect with a success message
         return redirect()->route('welcome.view')->with('success', 'Successfully Submitted');
     }
@@ -192,7 +198,7 @@ class CustomerOrdersController extends Controller
     }
 
     public function order_status($id){
-       
+
         $order = CustomerOrder::findOrFail($id);
         if($order->status=='pending'){
             $order->order_items()->delete();

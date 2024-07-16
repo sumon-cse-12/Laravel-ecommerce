@@ -233,7 +233,7 @@ section.section-10 {
     .page-header {
         margin-top: 152px !important;
     }
-   
+
 }
 
 
@@ -258,7 +258,7 @@ section.section-10 {
     transform: translate(-50%);
     transform: rotate(45deg);
     background: var(--bs-secondary);
-    
+
 }
 /*** featurs End ***/
 
@@ -266,10 +266,10 @@ section.section-10 {
 /*** service Start ***/
 .service .service-item .service-content {
     position: relative;
-    width: 250px; 
-    height: 130px; 
-    top: -50%; 
-    left: 50%; 
+    width: 250px;
+    height: 130px;
+    top: -50%;
+    left: 50%;
     transform: translate(-50%, -50%);
 }
 
@@ -282,7 +282,7 @@ section.section-10 {
 }
 
 .fruite .tab-class .nav-item a.active span {
-    color: var(--bs-white) !important; 
+    color: var(--bs-white) !important;
 }
 
 .fruite .fruite-categorie .fruite-name {
@@ -455,7 +455,7 @@ section.section-10 {
 .pagination {
     display: inline-block;
 }
-  
+
 .pagination a {
     color: var(--bs-dark);
     padding: 10px 16px;
@@ -464,13 +464,13 @@ section.section-10 {
     border: 1px solid var(--bs-secondary);
     margin: 0 4px;
 }
-  
+
 .pagination a.active {
     background-color: var(--bs-primary);
     color: var(--bs-light);
     border: 1px solid var(--bs-secondary);
 }
-  
+
 .pagination a:hover:not(.active) {background-color: var(--bs-primary)}
 
 .nav.nav-tabs .nav-link.active {
@@ -854,7 +854,7 @@ section.section-10-login {
     }
     .product-star {
         font-size: 12px !important;
-    }                                        
+    }
     .produc-cart-price-sec {
         text-align: start !important;
     }
@@ -899,4 +899,45 @@ input[type="checkbox"].custom-switch-button:checked {
 }
 .custom-switch {
     padding-left: 2.25rem;
+}
+.rating {
+    direction: rtl;
+    display: inline-block;
+    unicode-bidi: bidi-override;
+}
+
+.star {
+    font-size: 2rem;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.star:hover,
+.star:hover ~ .star,
+.star.selected {
+    color: gold;
+}
+.reviewers-icon {
+    border: 1px solid #dddddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+.reviewers-text {
+    border: 1px solid #d5d5d5;
+    padding: 10px;
+}
+img.rev-img {
+    width: 170px;
+    height: auto;
+}
+.star-rating {
+    display: inline-flex;
+    font-size: 24px;
+}
+.star-icon {
+    color: gold;
+}
+
+.review-image {
+    margin: 15px;
 }

@@ -11,12 +11,12 @@
         <link rel="icon" href="{{asset('uploads/'.get_settings('fab_icon'))}}" type="image/x-icon">
          @endif
         <!-- Google Web Fonts -->
-        
+
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/slick.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/slick-theme.css') }}" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap" rel="stylesheet">
 
         <!-- Icon Font Stylesheet -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"/>
@@ -30,8 +30,8 @@
         <link href="{{asset('frontend/css/bootstrap.min.css')}}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-
         <link rel="stylesheet" type="text/css" href="{{ asset('frontend/css/style.css') }}" />
+
           {{-- <script src="{{ asset('frontend/js/lazyload.17.6.0.min.js') }}"></script> --}}
           @yield('extra-css')
     </head>
@@ -94,32 +94,32 @@
                                 My Account</a>
                             <a href="{{ route('front.cart') }}" class="position-relative me-4 my-auto">
                                 @php
-        
+
                                 $total_item = 0;
-                            
+
                                 if (session()->has('cart')) {
-                            
+
                                     // Key exists, proceed to get the value
-                            
+
                                     $carts = session()->get('cart');
-                            
+
                                     if (isset($carts) && $carts) {
-                            
+
                                         foreach ($carts as $key => $cart) {
-                            
+
                                             $total_item = $total_item + $cart['quantity'];
-                            
+
                                         }
-                            
+
                                     }
-                            
+
                                 }
-                            
+
                             @endphp
                              <i class="fa fa-shopping-bag fa-2x"></i>
                              <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">{{ isset($total_item) ? $total_item : 0 }}</span>
                             </a>
-                           
+
                         </div>
                     </div>
                 </nav>
@@ -147,7 +147,7 @@
         </div>
         <!-- Modal Search End -->
         @yield('main-content')
-      
+
      <!-- Footer Start -->
      <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
         <div class="container py-5">
@@ -155,7 +155,7 @@
                 <div class="row g-4">
                     <div class="col-lg-3">
                         <a href="{{route('front.index')}}">
-                          
+
                             <h1 class="text-primary mb-0">Aribas Care</h1>
                             <p class="text-secondary mb-0">Organic products</p>
                         </a>
@@ -239,9 +239,9 @@
 
 
     <!-- Back to Top -->
-    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
-    
+
 <!-- JavaScript Libraries -->
 <script src="{{asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> --}}
@@ -261,7 +261,7 @@ $(document).on('click', '.add', function() {
     var product_id = $(this).attr('data-product-id');
     var quantityInput = $('#product_quantity_' + rowId);
     var quantity = parseInt(quantityInput.val());
-    
+
     // Increment the quantity
     quantity++;
     // Update the quantity input field
@@ -357,7 +357,38 @@ $(document).on('click', '.sub', function() {
             }
         });
     }
+    $(document).ready(function(){
+    let selectedRating = 0;
+
+    $(".star").on("mouseover", function(){
+        var ratingValue = $(this).data("value");
+        highlightStars(ratingValue);
+    });
+
+    $(".star").on("mouseout", function(){
+        highlightStars(selectedRating);
+    });
+
+    $(".star").on("click", function(){
+        selectedRating = $(this).data("value");
+        highlightStars(selectedRating);
+        $("#rating-value").text("You rated this " + selectedRating + " stars.");
+        $("#rating_point").val(selectedRating);
+    });
+
+    function highlightStars(ratingValue) {
+        $(".star").each(function(){
+            if ($(this).data("value") <= ratingValue) {
+                $(this).addClass("selected");
+            } else {
+                $(this).removeClass("selected");
+            }
+        });
+    }
+});
+
 </script>
+
 @yield('extra-js')
 </body>
 

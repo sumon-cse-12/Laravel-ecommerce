@@ -18,6 +18,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerOrdersController;
+use App\Http\Controllers\ReviewController;
 
 
 
@@ -61,12 +62,12 @@ Route::get('/welcome', [CheckoutController::class,'welcome_checkout'])->name('we
 
 Route::group(['prefix' => 'account'], function () {
 
-  
+
     Route::group(['middleware' => 'guest'], function () {
         Route::get('/registration', [AuthController::class,'registration'])->name('front.registration');
         Route::post('/register', [AuthController::class,'register'])->name('front.register');
         Route::get('/login', [AuthController::class,'login'])->name('front.login');
-   
+
         Route::post('/authenticate', [AuthController::class,'authenticate'])->name('front.authenticate');
     });
     Route::group(['middleware' => 'customer.auth'], function () {
@@ -76,6 +77,7 @@ Route::group(['prefix' => 'account'], function () {
         Route::post('/password/change', [AuthController::class,'password_update'])->name('front.password.update');
         Route::get('/orders', [CustomerOrdersController::class,'customer_orders'])->name('front.customer.order');
         Route::get('/order/status/{id}', [CustomerOrdersController::class,'order_status'])->name('customer.order.status');
+        Route::post('/add/review', [ReviewController::class,'add_review'])->name('customer.review');
         Route::get('/logout', [AuthController::class,'logout'])->name('front.logout');
     });
 
@@ -87,7 +89,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/admin/authenticate', [AdminLoginController::class,'authenticate'])->name('admin.authenticate');
 });
 
-Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {  
+Route::group(['as' => 'admin.', 'prefix' => 'admin'], function () {
 Route::group(['middleware' => 'admin.auth'], function () {
     Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
     Route::get('/logout', [AdminLoginController::class,'logout'])->name('logout');

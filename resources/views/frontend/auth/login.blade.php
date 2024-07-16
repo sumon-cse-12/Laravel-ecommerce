@@ -18,7 +18,7 @@
     <div class="container">
        <div class="row">
         <div class="col-lg-6 m-auto">
-            <div class="login-form">    
+            <div class="login-form">
                 <form action="{{route('front.authenticate')}}" method="post">
                     @csrf
                     <h4 class="modal-title mb-3">Login to Your Account</h4>
@@ -32,9 +32,9 @@
                     </div>
                     <div class="form-group small mb-2">
                         <a href="#" class="forgot-link">Forgot Password?</a>
-                    </div> 
-                    <input type="submit" class="btn btn-dark btn-block btn-lg login_btn" value="Login">              
-                </form>			
+                    </div>
+                    <input type="submit" class="btn btn-dark btn-block btn-lg login_btn" value="Login">
+                </form>
                 <div class="text-center small">Don't have an account? <a href="{{route('front.registration')}}">Sign up</a></div>
             </div>
         </div>
@@ -44,7 +44,7 @@
 @endsection
 @section('extra-js')
 <script>
-    
+
     $(document).on("click", ".login_btn", function(e) {
             const checkout_process = window.location.href.split('?')[1];
             $('#checkout_process').val(checkout_process);

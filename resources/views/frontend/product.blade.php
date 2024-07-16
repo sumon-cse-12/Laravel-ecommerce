@@ -1,12 +1,12 @@
 @extends('frontend.layouts.app')
 @section('extra-css')
-<style>
-    .alart-product-weight{
-        color: red;
-        font-size: 14px;
-        font-weight: 600;
-    }
-</style>
+    <style>
+        .alart-product-weight {
+            color: red;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
 @endsection
 @section('main-content')
     <!-- Single Product Start -->
@@ -19,53 +19,70 @@
                             @php
                                 $images = json_decode($product->image);
                             @endphp
-                        
+
                             <div class="owl-carousel product-carousel justify-content-center">
                                 @foreach ($images as $product_image)
                                     <div class="border border-primary rounded position-relative vesitable-item">
-                                        <img src="{{ asset('uploads/' . $product_image->image) }}" class="img-fluid rounded" alt="Image">
+                                        <img src="{{ asset('uploads/' . $product_image->image) }}" class="img-fluid rounded"
+                                            alt="Image">
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-                        
+
                         <div class="col-lg-6">
-                            <input type="hidden" id="single-p-id" value="{{$product->id}}">
+                            <input type="hidden" id="single-p-id" value="{{ $product->id }}">
                             <h4 class="fw-bold mb-3 mt-3">{{ isset($product->name) ? $product->name : '' }}</h4>
-                            <p class="mb-3">Category: {{ isset($product->category->name) ? $product->category->name : '' }}
+                            <p class="mb-3">Category:
+                                {{ isset($product->category->name) ? $product->category->name : '' }}
                             </p>
                             <div class="product-variant-sec-container">
                                 @if (isset($product->variations) && $product->variations)
-                                <div class="product-weight-sec">
-                                    @php
-                                        $v_price = 0;
-                                        // dd($product->variations);
-                                    @endphp
-                                @foreach ($product->variations as $key => $variation)
-                                @php
-                                    if($key==0){
-                                        $v_price = $variation->discount_price;
-                                    }
-                                @endphp
-                                @if ($key == 0 || $variation->weight != $product->variations[$key - 1]->weight)
-                                    <button type="button" data-v-discount-price="{{ $variation->discount_price }}" id="product-v-weight_{{ $key }}" class="product-weight-btn pdct-w-b">{{ $variation->weight }}</button>
+                                    <div class="product-weight-sec">
+                                        @php
+                                            $v_price = 0;
+                                            // dd($product->variations);
+                                        @endphp
+                                        @foreach ($product->variations as $key => $variation)
+                                            @php
+                                                if ($key == 0) {
+                                                    $v_price = $variation->discount_price;
+                                                }
+                                            @endphp
+                                            @if ($key == 0 || $variation->weight != $product->variations[$key - 1]->weight)
+                                                <button type="button"
+                                                    data-v-discount-price="{{ $variation->discount_price }}"
+                                                    id="product-v-weight_{{ $key }}"
+                                                    class="product-weight-btn pdct-w-b">{{ $variation->weight }}</button>
+                                            @endif
+                                        @endforeach
+
+                                    </div>
+                                    <div class="alart-product-weight" id="alart-product-weight"></div>
+                                    <h5 class="fw-bold mb-3 mt-3" id="product-v-price">৳{{ $v_price }}</h5>
                                 @endif
-                            @endforeach
-                            
-                                </div>
-                                <div class="alart-product-weight" id="alart-product-weight"></div>
-                                <h5 class="fw-bold mb-3 mt-3" id="product-v-price">৳{{$v_price}}</h5>
-                                @endif
-                                
+
                             </div>
-                            
-                            <div class="d-flex mb-4">
+                            @php
+                                $rating = product_rating($product->id);
+                                // dd( $rating);
+                            @endphp
+                            {{-- <div class="d-flex mb-4">
                                 <i class="fa fa-star text-secondary"></i>
                                 <i class="fa fa-star text-secondary"></i>
                                 <i class="fa fa-star text-secondary"></i>
                                 <i class="fa fa-star text-secondary"></i>
                                 <i class="fa fa-star"></i>
+                            </div> --}}
+                            <div class="d-flex mb-4">
+                                {!! generate_stars( $rating)  !!}
+                                {{-- <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star text-secondary"></i>
+                                <i class="fa fa-star"></i> --}}
                             </div>
+
                             <p class="mb-4">{!! isset($product->short_description) ? $product->short_description : '' !!}</p>
                             <div class="input-group quantity mb-5 d-none" style="width: 100px;">
                                 <div class="input-group-btn">
@@ -108,7 +125,8 @@
                                                         <p class="mb-0">Weight</p>
                                                     </div>
                                                     <div class="col-6">
-                                                        <p class="mb-0">{{ isset($product->weight) ? $product->weight : '' }}
+                                                        <p class="mb-0">
+                                                            {{ isset($product->weight) ? $product->weight : '' }}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -193,41 +211,76 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="#">
+                        @php
+                            $auth = auth('customer')->user();
+                            $fullName = isset($auth) ? trim($auth->first_name . ' ' . $auth->last_name) : '';
+                            $email = isset($auth->email) ? $auth->email : '';
+                            $customer_id = isset($auth->id) ? $auth->id : '';
+                        @endphp
+                        <form action="{{ route('customer.review') }}" method="post" enctype="multipart/form-data">
+                            @csrf
                             <h4 class="mb-5 fw-bold">Leave a Reply</h4>
+                            <input type="hidden" name="customer_id" value="{{ $customer_id }}">
+                            <input type="hidden" id="rating_point" name="rating" value="">
+                            <input type="hidden" id="product_id" name="product_id"
+                                value="{{ isset($product->id) ? $product->id : '' }}">
                             <div class="row g-4">
+                                <span>Your Email will be hide from others</span>
                                 <div class="col-lg-6">
                                     <div class="border-bottom rounded">
-                                        <input type="text" class="form-control border-0 me-4"
-                                            placeholder="Yur Name *">
+                                        <input value="{{ $fullName }}" type="text"
+                                            class="form-control border-0 me-4" placeholder="Yur Name *">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="border-bottom rounded">
-                                        <input type="email" class="form-control border-0" placeholder="Your Email *">
+                                        <input type="email" value="{{ $email }}" class="form-control border-0"
+                                            placeholder="Your Email *">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="border-bottom rounded my-4">
-                                        <textarea name="" id="" class="form-control border-0" cols="30" rows="8"
+                                        <textarea name="review_text" id="" class="form-control border-0" cols="8" rows="4"
                                             placeholder="Your Review *" spellcheck="false"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="border-bottom rounded my-4">
+                                        <input type="file" name="product_image" class="form-control border-0">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="d-flex justify-content-between py-3 mb-5">
                                         <div class="d-flex align-items-center">
                                             <p class="mb-0 me-3">Please rate:</p>
-                                            <div class="d-flex align-items-center" style="font-size: 12px;">
+                                            {{-- <div class="d-flex align-items-center" style="font-size: 12px;">
                                                 <i class="fa fa-star text-muted"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
+                                            </div> --}}
+                                            <div class="rating me-2">
+                                                <span class="star" data-value="5">&#9733;</span>
+                                                <span class="star" data-value="4">&#9733;</span>
+                                                <span class="star" data-value="3">&#9733;</span>
+                                                <span class="star" data-value="2">&#9733;</span>
+                                                <span class="star" data-value="1">&#9733;</span>
                                             </div>
+                                            <div id="rating-value"></div>
                                         </div>
-                                        <a href="#"
+                                        {{-- <a href="#"
                                             class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post
-                                            Comment</a>
+                                            Comment</a> --}}
+                                        @if (isset($auth) && $auth)
+                                            <button type="submit"
+                                                class="btn border border-secondary text-primary rounded-pill px-4 py-3">
+                                                Post Comment </button>
+                                        @else
+                                            <button type="button" title="Please Login first"
+                                                class="btn border border-secondary text-primary rounded-pill px-4 py-3">
+                                                Post Comment </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -259,86 +312,120 @@
                                 </ul>
                             </div>
                         </div>
-              
+
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="all-reviews">
+                        All Reviews
+                    </div>
+
+                    @if (isset($reviews) && $reviews)
+                        @foreach ($reviews as $review)
+                            {{-- {{dd($review)}} --}}
+                            <div class="reviewers-info mt-2">
+                                <div class="reviewers-pro-pic d-flex align-items-center">
+                                    <div class="reviewers-icon-sec"> <i class="fa fa-user reviewers-icon"
+                                            aria-hidden="true"></i></div>
+                                    <div class="reviewers-name">
+                                        <strong class="mx-2">{{ $review->customer->full_name }}</strong>
+                                    </div>
+                                </div>
+                                <div class="reviewers-text mt-3">{{ isset($review->review_text) ? $review->review_text : '' }}
+                                </div>
+                                @if (isset($review->review_image) && $review->review_image)
+                                    <div class="review-image">
+                                        <img src="{{ asset('uploads/' . $review->review_image) }}"
+                                            class="rev-img zoom-effect" alt="">
+                                    </div>
+                                @endif
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
             <h1 class="fw-bold mb-0">Related products</h1>
             <div class="vesitable">
-    
+
                 <div class="owl-carousel related-product-carousel justify-content-center">
-                    @if(isset($releted_products) && $releted_products)
-                @foreach ($releted_products as $releted_product)
-                    
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="custom-product-cart">
-                                <div class="product-card-body">
-                                    <div class="product-card-img-sec-if-slider">
-                                      @if(isset($releted_product->image) && $releted_product->image)
-                                      @php
-                                          $images = json_decode($releted_product->image);
-                                          $singleImage = $images[0];
-                                      @endphp
-                                     <a href="{{route('front.product',[$releted_product->slug])}}">
-                                      <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
-                                   </a>
-                                  @endif
-                                    
-                                    </div>
-                                    <div class="product-card-contnent-sec">
-               
-                                              <div class="product-item-name">
-                                                  <a href="{{route('front.product',[$releted_product->slug])}}">
-                                                      {{$releted_product->name}}
-                                                  </a>
-                                              </div>
-                  
-                                        <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                            <div class="d-flex align-items-baseline">
-                                                <i class="fas fa-star product-star"></i>
-                                                <i class="fas fa-star product-star"></i>
-                                                <i class="fas fa-star product-star"></i>
-                                                <i class="fas fa-star product-star"></i>
-                                                <i class="fas fa-star product-half-star"></i>
-                                                <i class="product-review-count"><span>(10 reviews)</span></i>
+                    @if (isset($releted_products) && $releted_products)
+                        @foreach ($releted_products as $releted_product)
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="custom-product-cart">
+                                        <div class="product-card-body">
+                                            <div class="product-card-img-sec-if-slider">
+                                                @if (isset($releted_product->image) && $releted_product->image)
+                                                    @php
+                                                        $images = json_decode($releted_product->image);
+                                                        $singleImage = $images[0];
+                                                    @endphp
+                                                    <a href="{{ route('front.product', [$releted_product->slug]) }}">
+                                                        <img src="{{ asset('uploads/' . $singleImage->image) }}"
+                                                            class="img-fluid zoom-effect" alt="">
+                                                    </a>
+                                                @endif
+
                                             </div>
-                                            <div class="produc-cart-price-sec">
-                                        
-                                                  @if (isset($releted_product->variations) && $releted_product->variations)
-                                                      @php
-                                                          $v_price = 0;
-                                                      @endphp
-                                                     @foreach ($releted_product->variations as $key => $variation)
-                                                     @php
-                                                         if($key==0){
-                                                          $v_price = $variation->discount_price;
-                                                         }
-                                                     @endphp
-                                                     @endforeach
-                                                     <p class="fw-bold">৳{{$v_price}}</p>
-                                                  {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
-                                                  @endif
-                                     
-                                               
+                                            <div class="product-card-contnent-sec">
+
+                                                <div class="product-item-name">
+                                                    <a href="{{ route('front.product', [$releted_product->slug]) }}">
+                                                        {{ $releted_product->name }}
+                                                    </a>
+                                                </div>
+
+                                                <div
+                                                    class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                    <div class="d-flex align-items-baseline">
+                                                        <i class="fas fa-star product-star"></i>
+                                                        <i class="fas fa-star product-star"></i>
+                                                        <i class="fas fa-star product-star"></i>
+                                                        <i class="fas fa-star product-star"></i>
+                                                        <i class="fas fa-star product-half-star"></i>
+                                                        <i class="product-review-count"><span>(10 reviews)</span></i>
+                                                    </div>
+                                                    <div class="produc-cart-price-sec">
+
+                                                        @if (isset($releted_product->variations) && $releted_product->variations)
+                                                            @php
+                                                                $v_price = 0;
+                                                            @endphp
+                                                            @foreach ($releted_product->variations as $key => $variation)
+                                                                @php
+                                                                    if ($key == 0) {
+                                                                        $v_price = $variation->discount_price;
+                                                                    }
+                                                                @endphp
+                                                            @endforeach
+                                                            <p class="fw-bold">৳{{ $v_price }}</p>
+                                                            {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
+                                                        @endif
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="product-add-n-wish-btn-sec">
+                                                    <div class="product-add-to-cart-button">
+                                                        <a href="{{ route('front.product', [$releted_product->slug]) }}"
+                                                            class="product-add-to-cart-btn"> <i
+                                                                class="fa fa-shopping-bag me-2 text-primary"></i>Add To
+                                                            Cart</a>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
                                         </div>
-              
-                                        <div class="product-add-n-wish-btn-sec">
-                                            <div class="product-add-to-cart-button">
-                                                <a href="{{route('front.product',[$releted_product->slug])}}" class="product-add-to-cart-btn"> <i class="fa fa-shopping-bag me-2 text-primary"></i>Add To Cart</a>
-                                            </div>
-                                          
-                                        </div>
-                                       
                                     </div>
                                 </div>
-                              </div>
-                        </div>
-                    </div>
-                    @endforeach
+                            </div>
+                        @endforeach
                     @endif
-                   
+
                 </div>
             </div>
         </div>
@@ -346,46 +433,45 @@
     <!-- Single Product End -->
 @endsection
 @section('extra-js')
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
 
-        // $(".product-weight-btn").trigger("click");
+            // $(".product-weight-btn").trigger("click");
 
-        $(".product-weight-btn").click(function() {
-            $('.alart-product-weight').addClass('d-none');
-            // Remove 'active' class from all weight buttons
-            $(".product-weight-btn").removeClass("active");
-            
-            // Add 'active' class to the clicked button
-            $(this).addClass("active");
-            
-            // Get the discount price and weight from the button's data attributes
-            var discountPrice = $(this).data("v-discount-price");
-            var weight = $(this).text().trim();
-            
-            // Update the product price display
-            $("#product-v-price").text('৳' + discountPrice);
-            
-            // Set data attributes on the "Add to Cart" button
-            $("#add-to-cart-btn").data("weight", weight).data("price", discountPrice);
-        });
-
-        // Add click event listener to "Add to Cart" button
-        $("#add-to-cart-btn").click(function() {
-            // Retrieve weight and price from data attributes
-            var weight = $(this).data("weight");
-            var price = $(this).data("price");
-            const id = $("#single-p-id").val();
-            if(weight && price){
+            $(".product-weight-btn").click(function() {
                 $('.alart-product-weight').addClass('d-none');
-                addToCart(id, weight, price); 
-            }else{
-                $('.alart-product-weight').html('Please select product weight')
-            }
+                // Remove 'active' class from all weight buttons
+                $(".product-weight-btn").removeClass("active");
 
-            
+                // Add 'active' class to the clicked button
+                $(this).addClass("active");
+
+                // Get the discount price and weight from the button's data attributes
+                var discountPrice = $(this).data("v-discount-price");
+                var weight = $(this).text().trim();
+
+                // Update the product price display
+                $("#product-v-price").text('৳' + discountPrice);
+
+                // Set data attributes on the "Add to Cart" button
+                $("#add-to-cart-btn").data("weight", weight).data("price", discountPrice);
+            });
+
+            // Add click event listener to "Add to Cart" button
+            $("#add-to-cart-btn").click(function() {
+                // Retrieve weight and price from data attributes
+                var weight = $(this).data("weight");
+                var price = $(this).data("price");
+                const id = $("#single-p-id").val();
+                if (weight && price) {
+                    $('.alart-product-weight').addClass('d-none');
+                    addToCart(id, weight, price);
+                } else {
+                    $('.alart-product-weight').html('Please select product weight')
+                }
+
+
+            });
         });
-    });
-</script>
-
+    </script>
 @endsection

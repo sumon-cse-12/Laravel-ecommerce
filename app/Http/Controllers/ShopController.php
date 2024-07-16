@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -36,6 +37,7 @@ class ShopController extends Controller
 
       $releted_products = Product::with('variations')->get();
       $data['releted_products'] = $releted_products;
+      $data['reviews'] = Review::all();
       return view('frontend.product',$data);
    }
 }

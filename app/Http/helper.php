@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Log;
 use Barryvdh\TranslationManager\Models\Translation;
 use App\Models\Page;
+use App\Models\Review;
 function get_settings($name)
 {
     $cache_in_seconds = env('CACHE_TIME');
@@ -77,3 +78,42 @@ function generateUniqueString() {
     $uniqueString = substr($shuffledCharacters, 0, 10);
     return $uniqueString;
 }
+
+if (!function_exists('product_rating')) {
+    function product_rating($productId) {
+        $reviews = Review::where('product_id', $productId)->get();
+
+        if ($reviews->isEmpty()) {
+            return 0; // or return null if you prefer
+        }
+
+        $averageRating = $reviews->avg('rating');
+        $roundedRating = round($averageRating * 2) / 2;
+        return $roundedRating;
+    }
+}
+function generate_stars($rating) {
+    $fullStars = floor($rating);
+    $halfStar = ($rating - $fullStars >= 0.5) ? true : false;
+    $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+
+    $starsHtml = '';
+
+    // Add full stars
+    for ($i = 0; $i < $fullStars; $i++) {
+        $starsHtml .= '<i class="fas fa-star star-icon"></i>';
+    }
+
+    // Add half star
+    if ($halfStar) {
+        $starsHtml .= '<i class="fas fa-star-half-alt star-icon"></i>';
+    }
+
+    // Add empty stars
+    for ($i = 0; $i < $emptyStars; $i++) {
+        $starsHtml .= '<i class="far fa-star star-icon"></i>';
+    }
+
+    return $starsHtml;
+}
+
