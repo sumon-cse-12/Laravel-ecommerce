@@ -37,7 +37,7 @@ class ShopController extends Controller
 
       $releted_products = Product::with('variations')->get();
       $data['releted_products'] = $releted_products;
-      $data['reviews'] = Review::all();
+      $data['reviews'] = Review::where('product_id', $product->id)->get();
       return view('frontend.product',$data);
    }
 }
