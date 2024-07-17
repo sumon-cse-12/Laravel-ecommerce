@@ -129,21 +129,26 @@ class CustomerOrdersController extends Controller
         $auth = auth('customer')->user();
 
         // Update or create the customer
-        if($request->registered_customer){
+        if ($request->registered_customer) {
             $customer = new Customer();
             $customer->first_name = $request->first_name;
             $customer->last_name = $request->last_name;
             $customer->password = bcrypt($request->password);
             $customer->email = $request->email;
+
             $already_registered = Customer::where('phone_number', $request->phone_number)->first();
-            if($already_registered){
-                $already_registered->phone_number = $request->phone_number;
+            if ($already_registered) {
+                $already_registered->first_name = $request->first_name;
+                $already_registered->last_name = $request->last_name;
+                $already_registered->password = bcrypt($request->password);
+                $already_registered->email = $request->email;
                 $already_registered->save();
-            }else{
+            } else {
                 $customer->phone_number = $request->phone_number;
+                $customer->save();
             }
-            $customer->save();
         }
+
 
         // $checkoutData['customer_id'] = $customer ? $customer->id : null;
         $customer_order = new CustomerOrder();

@@ -49,13 +49,13 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                     <img src="{{asset('uploads/'.$template->slider_three_image_file_name)}}" class="d-block w-100" alt="...">
                   </div>
                   @endif
-               
+
                   @if (isset($template->slider_four_image_file_name) && $template->slider_four_image_file_name)
                   <div class="carousel-item">
                     <img src="{{asset('uploads/'.$template->slider_four_image_file_name)}}" class="d-block w-100" alt="...">
                   </div>
                   @endif
-                 
+
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -67,7 +67,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                 </button>
               </div>
         </section>
-       
+
         <div class="container-fluid fruite py-5">
             <div class="container py-5">
                 <div class="tab-class text-center">
@@ -128,29 +128,29 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
-                                          
+
                                           </div>
                                           <div class="product-card-contnent-sec">
-                     
+
                                                     <div class="product-item-name">
                                                         <a href="{{route('front.product',[$product->slug])}}">
                                                             {{$product->name}}
                                                         </a>
                                                     </div>
-                        
                                               <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                @php
+                                                $rating = product_rating($product->id);
+                                                $rating_count = count_product_rating($product->id);
+                                                @endphp
                                                   <div class="d-flex align-items-baseline">
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-half-star"></i>
-                                                      <i class="product-review-count"><span>(10 reviews)</span></i>
+                                                    {!! generate_stars( $rating)  !!}
+                                                      <i class="product-review-count">
+                                                        <span>({{$rating_count}} reviews)</span></i>
                                                   </div>
-                                                  
+
                                               </div>
                                               <div class="produc-cart-price-sec">
-                                              
+
                                                 @if (isset($product->variations) && $product->variations)
                                                     @php
                                                         $v_price = 0;
@@ -165,8 +165,8 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                    <p class="fw-bold pb-0">৳{{$v_price}}</p>
                                                 {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
                                                 @endif
-                                   
-                                             
+
+
                                           </div>
 
                                               <div class="product-add-n-wish-btn-sec ">
@@ -174,7 +174,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                       <a href="{{route('front.product',[$product->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
-                                             
+
                                           </div>
                                       </div>
                                     </div>
@@ -202,29 +202,30 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                     <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                                  </a>
                                                 @endif
-                                                  
+
                                                   </div>
                                                   <div class="product-card-contnent-sec">
-                                        
+
                                                             <div class="product-item-name">
                                                                 <a href="#">
                                                                     {{$hair_oil->name}}
                                                                 </a>
                                                             </div>
-                                        
-                                                      <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                                          <div class="d-flex align-items-baseline">
-                                                              <i class="fas fa-star product-star"></i>
-                                                              <i class="fas fa-star product-star"></i>
-                                                              <i class="fas fa-star product-star"></i>
-                                                              <i class="fas fa-star product-star"></i>
-                                                              <i class="fas fa-star product-half-star"></i>
-                                                              <i class="product-review-count"><span>(10 reviews)</span></i>
-                                                          </div>
-                                                          
-                                                      </div>
+
+                                                            <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                                @php
+                                                                $rating = product_rating($hair_oil->id);
+                                                                $rating_count = count_product_rating($hair_oil->id);
+                                                                @endphp
+                                                                  <div class="d-flex align-items-baseline">
+                                                                    {!! generate_stars( $rating)  !!}
+                                                                      <i class="product-review-count">
+                                                                        <span>({{$rating_count}} reviews)</span></i>
+                                                                  </div>
+
+                                                              </div>
                                                       <div class="produc-cart-price-sec">
-                                                      
+
                                                         @if (isset($hair_oil->variations) && $hair_oil->variations)
                                                             @php
                                                                 $v_price = 0;
@@ -239,24 +240,24 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                            <p class="fw-bold pb-0">৳{{$v_price}}</p>
                                                         {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
                                                         @endif
-                                           
-                                                     
+
+
                                                   </div>
-                                        
+
                                                       <div class="product-add-n-wish-btn-sec">
                                                           <div class="product-add-to-cart-button">
                                                               <a href="{{route('front.product',[$hair_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                           </div>
-                                                         
+
                                                       </div>
-                                                     
+
                                                   </div>
                                               </div>
                                             </div>
                                           </div>
                                         @endforeach
                                         @endif
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -278,29 +279,30 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
-                                          
+
                                           </div>
                                           <div class="product-card-contnent-sec">
-                                
+
                                                     <div class="product-item-name">
                                                         <a href="{{route('front.product',[$baby_oil->slug])}}">
                                                             {{$baby_oil->name}}
                                                         </a>
                                                     </div>
-                                
-                                              <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                                  <div class="d-flex align-items-baseline">
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-half-star"></i>
-                                                      <i class="product-review-count"><span>(10 reviews)</span></i>
-                                                  </div>
-                                                 
-                                              </div>
+
+                                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                        @php
+                                                        $rating = product_rating($baby_oil->id);
+                                                        $rating_count = count_product_rating($baby_oil->id);
+                                                        @endphp
+                                                          <div class="d-flex align-items-baseline">
+                                                            {!! generate_stars( $rating)  !!}
+                                                              <i class="product-review-count">
+                                                                <span>({{$rating_count}} reviews)</span></i>
+                                                          </div>
+
+                                                      </div>
                                               <div class="produc-cart-price-sec">
-                                              
+
                                                 @if (isset($baby_oil->variations) && $baby_oil->variations)
                                                     @php
                                                         $v_price = 0;
@@ -315,16 +317,16 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                    <p class="fw-bold pb-0">৳{{$v_price}}</p>
                                                 {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
                                                 @endif
-                                   
-                                             
+
+
                                           </div>
-                                
+
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
                                                       <a href="{{route('front.product',[$baby_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
-                                             
+
                                           </div>
                                       </div>
                                     </div>
@@ -351,29 +353,30 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
-                                          
+
                                           </div>
                                           <div class="product-card-contnent-sec">
-                                
+
                                                     <div class="product-item-name">
                                                         <a href="{{route('front.product',[$mens_beard_oil->slug])}}">
                                                             {{$mens_beard_oil->name}}
                                                         </a>
                                                     </div>
-                                
-                                              <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                                  <div class="d-flex align-items-baseline">
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-half-star"></i>
-                                                      <i class="product-review-count"><span>(10 reviews)</span></i>
-                                                  </div>
-                                                  
-                                              </div>
+
+                                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                        @php
+                                                        $rating = product_rating($mens_beard_oil->id);
+                                                        $rating_count = count_product_rating($mens_beard_oil->id);
+                                                        @endphp
+                                                          <div class="d-flex align-items-baseline">
+                                                            {!! generate_stars( $rating)  !!}
+                                                              <i class="product-review-count">
+                                                                <span>({{$rating_count}} reviews)</span></i>
+                                                          </div>
+
+                                                      </div>
                                               <div class="produc-cart-price-sec">
-                                              
+
                                                 @if (isset($mens_beard_oil->variations) && $mens_beard_oil->variations)
                                                     @php
                                                         $v_price = 0;
@@ -388,16 +391,16 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                    <p class="fw-bold pb-0">৳{{$v_price}}</p>
                                                 {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
                                                 @endif
-                                   
-                                             
+
+
                                           </div>
-                                
+
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
                                                       <a href="{{route('front.product',[$mens_beard_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
-                                             
+
                                           </div>
                                       </div>
                                     </div>
@@ -423,29 +426,30 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
-                                          
+
                                           </div>
                                           <div class="product-card-contnent-sec">
-                                
+
                                                     <div class="product-item-name">
                                                         <a href="{{route('front.product',[$facial_serum->slug])}}">
                                                             {{$facial_serum->name}}
                                                         </a>
                                                     </div>
-                                
-                                              <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                                  <div class="d-flex align-items-baseline">
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-half-star"></i>
-                                                      <i class="product-review-count"><span>(10 reviews)</span></i>
-                                                  </div>
-                                                  
-                                              </div>
+
+                                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                        @php
+                                                        $rating = product_rating($facial_serum->id);
+                                                        $rating_count = count_product_rating($facial_serum->id);
+                                                        @endphp
+                                                          <div class="d-flex align-items-baseline">
+                                                            {!! generate_stars( $rating)  !!}
+                                                              <i class="product-review-count">
+                                                                <span>({{$rating_count}} reviews)</span></i>
+                                                          </div>
+
+                                                      </div>
                                               <div class="produc-cart-price-sec">
-                                              
+
                                                 @if (isset($facial_serum->variations) && $facial_serum->variations)
                                                     @php
                                                         $v_price = 0;
@@ -460,17 +464,17 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                    <p class="fw-bold pb-0">৳{{$v_price}}</p>
                                                 {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
                                                 @endif
-                                   
-                                             
+
+
                                           </div>
-                                
+
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
                                                       <a href="{{route('front.product',[$facial_serum->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
-                                              
+
                                               </div>
-                                             
+
                                           </div>
                                       </div>
                                     </div>
@@ -496,29 +500,30 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
-                                          
+
                                           </div>
                                           <div class="product-card-contnent-sec">
-                                
+
                                                     <div class="product-item-name">
                                                         <a href="{{route('front.product',[$body_oil->slug])}}">
                                                             {{$body_oil->name}}
                                                         </a>
                                                     </div>
-                                
-                                              <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                                  <div class="d-flex align-items-baseline">
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-half-star"></i>
-                                                      <i class="product-review-count"><span>(10 reviews)</span></i>
-                                                  </div>
-                                                  
-                                              </div>
+
+                                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                        @php
+                                                        $rating = product_rating($body_oil->id);
+                                                        $rating_count = count_product_rating($body_oil->id);
+                                                        @endphp
+                                                          <div class="d-flex align-items-baseline">
+                                                            {!! generate_stars( $rating)  !!}
+                                                              <i class="product-review-count">
+                                                                <span>({{$rating_count}} reviews)</span></i>
+                                                          </div>
+
+                                                      </div>
                                               <div class="produc-cart-price-sec">
-                                              
+
                                                 @if (isset($body_oil->variations) && $body_oil->variations)
                                                     @php
                                                         $v_price = 0;
@@ -533,17 +538,17 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                    <p class="fw-bold pb-0">৳{{$v_price}}</p>
                                                 {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
                                                 @endif
-                                   
-                                             
+
+
                                           </div>
-                                
+
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
                                                       <a href="{{route('front.product',[$body_oil->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
-                                                  
+
                                               </div>
-                                             
+
                                           </div>
                                       </div>
                                     </div>
@@ -553,14 +558,14 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             </div>
                         </div>
                     </div>
-                </div>      
+                </div>
             </div>
         </div>
         <!-- Fruits Shop End-->
         {{-- <div class="container-fluid banner bg-green my-5">
             <div class="container py-5">
                 <div class="row g-4 align-items-center">
-                   
+
                     <div class="col-lg-6">
                         <div class="position-relative">
                             <img src="{{asset('img/facial-serum.png')}}" class="img-fluid w-100 rounded" alt="">
@@ -636,7 +641,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                         {{isset($template->section_two_des)?$template->section_two_des:''}}
                     </div>
                 </div>
-    
+
                 <div class="owl-carousel related-product-carousel justify-content-center">
                     @if(isset($products) && $products)
                 @foreach ($products as $product)
@@ -654,29 +659,30 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                             <img src="{{asset('uploads/'.$singleImage->image)}}" class="img-fluid zoom-effect" alt="">
                                          </a>
                                         @endif
-                                          
+
                                           </div>
                                           <div class="product-card-contnent-sec">
-                     
+
                                                     <div class="product-item-name">
                                                         <a href="{{route('front.product',[$product->slug])}}">
                                                             {{$product->name}}
                                                         </a>
                                                     </div>
-                        
-                                              <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                                  <div class="d-flex align-items-baseline">
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-star"></i>
-                                                      <i class="fas fa-star product-half-star"></i>
-                                                      <i class="product-review-count"><span>(10 reviews)</span></i>
-                                                  </div>
-                                                  
-                                              </div>
+
+                                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
+                                                        @php
+                                                        $rating = product_rating($product->id);
+                                                        $rating_count = count_product_rating($product->id);
+                                                        @endphp
+                                                          <div class="d-flex align-items-baseline">
+                                                            {!! generate_stars( $rating)  !!}
+                                                              <i class="product-review-count">
+                                                                <span>({{$rating_count}} reviews)</span></i>
+                                                          </div>
+
+                                                      </div>
                                               <div class="produc-cart-price-sec">
-                                              
+
                                                 @if (isset($product->variations) && $product->variations)
                                                     @php
                                                         $v_price = 0;
@@ -691,25 +697,25 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                                                    <p class="fw-bold pb-0">৳{{$v_price}}</p>
                                                 {{-- <h5 class="fw-bold " id="product-v-price">৳{{$v_price}}</h5> --}}
                                                 @endif
-                                   
-                                             
+
+
                                           </div>
-    
+
                                               <div class="product-add-n-wish-btn-sec">
                                                   <div class="product-add-to-cart-button">
                                                       <a href="{{route('front.product',[$product->slug])}}" class="product-add-to-cart-btn">Add To Cart</a>
                                                   </div>
                                               </div>
-                                             
+
                                           </div>
                                       </div>
                                     </div>
                                   </div>
                             </div>
-                
+
                     @endforeach
                     @endif
-                   
+
                 </div>
                 </div>
             </div>
@@ -748,7 +754,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
 
 
         <!-- Bestsaler Product Start -->
-      
+
         <!-- Bestsaler Product End -->
 
 
@@ -800,20 +806,23 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                     <h1 class="display-5 mb-5 text-dark">What our customers have to say</h1>
                 </div>
                 <div class="owl-carousel testimonial-carousel">
+                    @if (isset($reviews) && $reviews)
+
+                    @foreach ($reviews as $review_item )
                     <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
                         <div class="customer-review-sec-content">
                             <div class="position-relative text-center">
-                             
+
                                 <div class="mb-4 pb-4 border-bottom border-secondary">
                                     <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
+                                    <p class="mb-0">  {{isset($review_item->review_text)?$review_item->review_text:''}}
                                     </p>
                                     <i class="fa fa-quote-right" aria-hidden="true"></i>
                                 </div>
-                                 
-                               
+
+
                                 <div class="review-sec-footer">
-                                    test
+                                   {{isset($review_item->customer->full_name)?$review_item->customer->full_name:''}}
                                     <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
                                         <div class="">
                                             <i class="fas fa-star product-star"></i>
@@ -827,87 +836,10 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             </div>
                         </div>
                     </div>
-                    <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
-                        <div class="customer-review-sec-content">
-                            <div class="position-relative text-center">
-                             
-                                <div class="mb-4 pb-4 border-bottom border-secondary">
-                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    </p>
-                                    <i class="fa fa-quote-right" aria-hidden="true"></i>
-                                </div>
-                                 
-                               
-                                <div class="review-sec-footer">
-                                    test
-                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                        <div class="">
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-half-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
-                        <div class="customer-review-sec-content">
-                            <div class="position-relative text-center">
-                             
-                                <div class="mb-4 pb-4 border-bottom border-secondary">
-                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    </p>
-                                    <i class="fa fa-quote-right" aria-hidden="true"></i>
-                                </div>
-                                 
-                               
-                                <div class="review-sec-footer">
-                                    test
-                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                        <div class="">
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-half-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="customer-saying-section-wrapper img-border-radius bg-light rounded">
-                        <div class="customer-review-sec-content">
-                            <div class="position-relative text-center">
-                             
-                                <div class="mb-4 pb-4 border-bottom border-secondary">
-                                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                                    <p class="mb-0">Lorem Ipsum is simply dummy text of the printing Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                    </p>
-                                    <i class="fa fa-quote-right" aria-hidden="true"></i>
-                                </div>
-                                 
-                               
-                                <div class="review-sec-footer">
-                                    test
-                                    <div class="product-review-n-price-sec mt-2 mb-1 d-flex justify-content-between">
-                                        <div class="">
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-star"></i>
-                                            <i class="fas fa-star product-half-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
+                    @endif
+
                 </div>
             </div>
         </div>
@@ -948,7 +880,7 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                 </div>
             </div>
         </div>
-        
+
         <!-- News latter End -->
 
 
@@ -990,11 +922,11 @@ $app_section = get_settings('app_section') ? json_decode(get_settings('app_secti
                             <p class="mb-0">{{isset($template->featured_sec_short_des_three)?$template->featured_sec_short_des_three:''}}</p>
                         </div>
                     </div>
-                
+
                 </div>
             </div>
         </div>
         <!-- Featurs Section End -->
 
-    
+
 @endsection

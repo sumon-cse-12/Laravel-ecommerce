@@ -250,8 +250,8 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="d-flex justify-content-between py-3 mb-5">
-                                        <div class="d-flex align-items-center">
+                                    <div class="rating-div py-3 mb-5">
+                                        <div class="rating-starts-sec">
                                             <p class="mb-0 me-3">Please rate:</p>
                                             {{-- <div class="d-flex align-items-center" style="font-size: 12px;">
                                                 <i class="fa fa-star text-muted"></i>
@@ -261,13 +261,13 @@
                                                 <i class="fa fa-star"></i>
                                             </div> --}}
                                             <div class="rating me-2">
-                                                <span class="star" data-value="5">&#9733;</span>
-                                                <span class="star" data-value="4">&#9733;</span>
-                                                <span class="star" data-value="3">&#9733;</span>
-                                                <span class="star" data-value="2">&#9733;</span>
-                                                <span class="star" data-value="1">&#9733;</span>
+                                                <span class="star" data-value="5"><i class="fas fa-star"></i></span>
+                                                <span class="star" data-value="4"><i class="fas fa-star"></i></span>
+                                                <span class="star" data-value="3"><i class="fas fa-star"></i></span>
+                                                <span class="star" data-value="2"><i class="fas fa-star"></i></span>
+                                                <span class="star" data-value="1"><i class="fas fa-star"></i></span>
                                             </div>
-                                            <div id="rating-value"></div>
+                                            <div class="my-2" id="rating-value"></div>
                                         </div>
                                         {{-- <a href="#"
                                             class="btn border border-secondary text-primary rounded-pill px-4 py-3"> Post

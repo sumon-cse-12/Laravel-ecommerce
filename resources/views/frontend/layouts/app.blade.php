@@ -57,7 +57,7 @@
                         <small class="me-3"><i class="fas fa-envelope me-2 text-secondary"></i><a href="#" class="text-white">{{isset($app_section->email_address)?$app_section->email_address:''}}</a></small>
                     </div>
                     <div class="top-link pe-2">
-                        <a href="#" class="text-white"><strong class="text-white ms-2 fa fa-phone-alt fa-1x text-primary me-4"> 01737492682 </strong></a>
+                        <a href="tel:01737492682" class="text-white"><strong class="text-white ms-2 fa fa-phone-alt fa-1x text-primary me-4"> 01737492682 </strong></a>
                     </div>
                 </div>
             </div>

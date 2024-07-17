@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Settings;
 use App\Models\BlogCategory;
 use App\Models\Page;
+use App\Models\Review;
 use App\Models\ProductVariation;
 
 class FrontController extends Controller
@@ -31,7 +32,7 @@ class FrontController extends Controller
           $hair_oils = Product::where('category_id', $hairOilCategory->id)->get();
           $data['hair_oils'] = $hair_oils;
         }else{
-          
+
           $data['hair_oils'] = [];
 
         }
@@ -62,8 +63,9 @@ class FrontController extends Controller
         if(!$bodyOilCategory){
           $data['body_oils'] = [];
         }else{
-        $data['body_oils'] = Product::where('category_id', $bodyOilCategory->id)->get(); 
+        $data['body_oils'] = Product::where('category_id', $bodyOilCategory->id)->get();
        }
+       $data['reviews'] = Review::limit(4)->get();
         return view('frontend.index',$data);
     }
 
@@ -79,7 +81,7 @@ class FrontController extends Controller
           return view('frontend.abouts', $data);
         }
     }
-    
+
 
     public function contact(){
       return view('frontend.contact_us');

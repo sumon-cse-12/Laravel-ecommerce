@@ -146,6 +146,15 @@
 section.section-10 {
     padding-top: 90px;
 }
+.rating-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.rating-starts-sec {
+    display: flex;
+    align-items: center;
+}
 @media (min-width: 1200px) {
     .navbar .nav-item .dropdown-menu {
         display: block;
@@ -817,6 +826,12 @@ section.section-10-login {
     section.section-9.pt-4 {
         padding-top: 10px !important;
     }
+    .rating-div {
+        display: block !important;
+    }
+    .rating-starts-sec {
+        display: block !important;
+    }
 }
 
 @media (max-width: 500px) {
@@ -904,6 +919,7 @@ input[type="checkbox"].custom-switch-button:checked {
     direction: rtl;
     display: inline-block;
     unicode-bidi: bidi-override;
+    padding: 10px 0px;
 }
 
 .star {

@@ -92,6 +92,12 @@ if (!function_exists('product_rating')) {
         return $roundedRating;
     }
 }
+
+function count_product_rating($id) {
+    $rating_count = 0;
+    $rating_count = Review::where('product_id', $id)->count();
+    return $rating_count;
+}
 function generate_stars($rating) {
     $fullStars = floor($rating);
     $halfStar = ($rating - $fullStars >= 0.5) ? true : false;
